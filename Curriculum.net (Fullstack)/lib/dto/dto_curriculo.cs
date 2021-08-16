@@ -28,10 +28,10 @@ namespace lib.dto
 
         /// <summary>Telefone do dono do currículo</summary>
         [Required(ErrorMessage = "Telefone Inválido")]
-        public string telefone { get; set; }
+        public string Telefone { get; set; }
 
         /// <summary>Cep do dono do currículo</summary>
-        public dto_cep cep { get; set; }
+        public dto_endereco Endereco { get; set; }
 
         /// <summary>Frase motivacional do currículo</summary>
         public string FraseMotivacional { get; set; }
@@ -54,13 +54,13 @@ namespace lib.dto
         // LISTA DE INFORMAÇÕES ACADEMICAS E DE HISTÓRICO PROFISSIONAIS
 
         /// <summary>Lista informações academicas - estudos, faculdades...</summary>
-        public List<InfosAcademicas> lst_infos_academicas { get; set; }
+        public InfosAcademicas lst_infos_academicas { get; set; }
 
         /// <summary>Lista de hitórico profissional - Locais de trabalho, freelances...</summary>
-        public List<HistoricoProfissional> lst_Historico_Profissional { get; set; }
+        public HistoricoProfissional lst_Historico_Profissional { get; set; }
 
         /// <summary>Lista de habilidades que você possui e aprendeu </summary>
-        public List<SoftSkills> lst_soft_skills { get; set; }
+        public SoftSkills lst_soft_skills { get; set; }
         #endregion
     }
 
@@ -110,25 +110,25 @@ namespace lib.dto
 
     /// <summary>Objeto de retorno da viacep</summary>
     [Serializable]
-    public class dto_cep
+    public class dto_endereco
     {
         /// <summary>CEP da residencia</summary>
         public string cep { get; set; }
 
         /// <summary>Rua do dono do currículo</summary>
-        public string logradouro { get; set; }
+        public string Logradouro { get; set; }
 
         /// <summary>Complemento</summary>
-        public string complemento { get; set; }
+        public string Complemento { get; set; }
 
         /// <summary>Bairro do dono do currículo</summary>
-        public string bairro { get; set; }
+        public string Bairro { get; set; }
 
         /// <summary>Cidade do dono do currículo </summary>
-        public string localidade { get; set; }
+        public string Localidade { get; set; }
 
         /// <summary>UF do dono do currículo</summary>
-        public string uf { get; set; }
+        public string UF { get; set; }
     }
 
     /// <summary>Objeto das habilidades</summary>
@@ -139,6 +139,6 @@ namespace lib.dto
         public string Nome { get; set; }
 
         /// <summary>Descrição da sua habilidade</summary>
-        public string descricao { get; set; }
+        public string Descricao { get; set; }
     }
 }

@@ -2,17 +2,11 @@
 <div class="container" style="margin-top: 30px">
   <form [formGroup]="curriculoGroup" (ngSubmit)="onSubmit()">
     <h3 class="text-primary">Informações básicas</h3>
-    <div class="row mb-4">
+    <div class="row">
       <div class="col">
         <label for="nome">Nome</label>
-        <input type="text" id="nome" class="form-control" placeholder="Nome">
+        <input type="text" id="nome" class="form-control" placeholder="Nome" formControlName="Email">
       </div>
-      <div class="col">
-        <label for="sobrenome">Sobrenome</label>
-        <input type="text" id="sobrenome" class="form-control" placeholder="Sobrenome">
-      </div>
-    </div>
-    <div class="row">
       <div class="col">
         <label for="email">Email</label>
         <input type="email" id="email" class="form-control" placeholder="email@mail.com" formControlName="Email">
@@ -21,9 +15,9 @@
         <label for="tel">Telefone</label>
         <input type="tel" class="form-control" id="tel" placeholder="(31)9999-9999" formControlName="Telefone">
       </div>
-      <div class="col">
+      <div class="col" formGroupName="Endereco">
         <label for="cep">Cep</label>
-        <input type="text" class="form-control" placeholder="99999-999" id="cep" formControlName="CEP">
+        <input type="text" class="form-control" placeholder="99999-999" id="cep" formControlName="cep">
       </div>
     </div>
 
@@ -51,79 +45,92 @@
     </div>
 
     <h3 class="text-primary mt-4">Formações acadêmicas</h3>
-    <div class="form-group">
-      <div class="form-row">
-        <div class="col">
-          <label for="instituicao">Nome da instituição</label>
-          <input type="text" id="instituicao" class="form-control" placeholder="Escola, faculdade" >
+    <div formArrayName="lst_infos_academicas" *ngFor="let infos of curriculoGroup.controls.lst_infos_academicas?.value; let i = index">
+      <div class="form-group" formGroupName="lst_infos_academicas" style="margin-bottom: 40px">
+        <div class="form-row">
+          <div class="col">
+            <label for="instituicao">Nome da instituição</label>
+            <input type="text" id="instituicao" class="form-control" placeholder="Escola, faculdade" formControlName="Nome_instituicao">
+          </div>
+          <div class="col">
+            <label for="tipo_curso">Tipo do curso</label>
+            <input type="text" id="tipo_curso" class="form-control" placeholder="Técnico, ensino médio, mestrado, superior" formControlName="TipoCurso">
+          </div>
+          <div class="col">
+            <label for="curso">Curso</label>
+            <input type="text" id="curso" class="form-control" placeholder="Ciencias da computação, geografia, física" formControlName="Curso">
+          </div>
         </div>
-        <div class="col">
-          <label for="tipo_curso">Tipo do curso</label>
-          <input type="text" id="tipo_curso" class="form-control" placeholder="Técnico, ensino médio, mestrado, superior">
+        <div class="form-group" style="margin-top: 15px">
+          <label for="fraseMotivacional">Descição do aprendizado</label>
+          <textarea class="form-control" id="fraseMotivacional" rows="3" placeholder="O que você aprendeu ?" formControlName="Descricao_aprendizado"></textarea>
         </div>
-        <div class="col">
-          <label for="curso">Curso</label>
-          <input type="text" id="curso" class="form-control" placeholder="Ciencias da computação, geografia, física">
+        <div class="form-row">
+          <div class="col">
+            <label for="dt_inicial">Data inicial</label>
+            <input type="date" id="dt_inicial" class="form-control" formControlName="DataInicio">
+          </div>
+          <div class="col">
+            <label for="dt_final">Data final</label>
+            <input type="date" id="dt_final" class="form-control" formControlName="DataConclusao">
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="fraseMotivacional">Descição do aprendizado</label>
-        <textarea class="form-control" id="fraseMotivacional" rows="3" placeholder="O que você aprendeu ?"></textarea>
       </div>
     </div>
-    <div class="form-row">
-      <div class="col">
-        <label for="dt_inicial">Data inicial</label>
-        <input type="date" id="dt_inicial" class="form-control">
-      </div>
-      <div class="col">
-        <label for="dt_final">Data final</label>
-        <input type="date" id="dt_final" class="form-control">
-      </div>
-    </div>
+    <button type="button" class="btn btn-primary btn-lg " (click)="fnc_adiciona_infos_academicas()"><b style="font-size: 26px">+</b></button>
 
     <h3 class="text-primary mt-4">histórico profissional</h3>
-    <div class="form-group">
-      <div class="form-row">
-        <div class="col">
-          <label for="emp_instituicao">Nome da instituição</label>
-          <input type="text" id="emp_instituicao" class="form-control" placeholder="Empresa, instituição">
+    <div formArrayName="lst_Historico_Profissional" *ngFor="let infos of curriculoGroup.controls.lst_Historico_Profissional?.value; let i = index">
+      <div class="form-group" formGroupName="lst_Historico_Profissional" style="margin-bottom: 40px">
+        <div class="form-row">
+          <div class="col">
+            <label for="emp_instituicao">Nome da instituição</label>
+            <input type="text" id="emp_instituicao" class="form-control" placeholder="Empresa, instituição" formControlName="Nome_instituicao">
+          </div>
+          <div class="col">
+            <label for="emp_cargo">Cargo</label>
+            <input type="text" id="emp_cargo" class="form-control" placeholder="Técnico em informática, operador de máquina" formControlName="Cargo">
+          </div>
         </div>
-        <div class="col">
-          <label for="emp_cargo">Cargo</label>
-          <input type="text" id="emp_cargo" class="form-control" placeholder="Técnico em informática, operador de máquina">
+        <div class="form-group">
+          <label for="emp_desc_cargo">Descrição do cargo</label>
+          <textarea class="form-control" id="emp_desc_cargo" rows="3" placeholder="o que você desempenhava nesta vaga" formControlName="Descricao_cargo"></textarea>
+          <div class="form-row">
+            <div class="col">
+              <label for="emp_dt_inicial">Data da entrada</label>
+              <input type="date" id="emp_dt_inicial" class="form-control" formControlName="DataInicio">
+            </div>
+            <div class="col">
+              <label for="emp_dt_final">Data da saída</label>
+              <input type="date" id="emp_dt_final" class="form-control" formControlName="DataSaida">
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <label for="emp_desc_cargo">Descrição do cargo</label>
-      <textarea class="form-control" id="emp_desc_cargo" rows="3" placeholder="o que você desempenhava nesta vaga"></textarea>
-    </div>
-    <div class="form-row">
-      <div class="col">
-        <label for="emp_dt_inicial">Data da entrada</label>
-        <input type="date" id="emp_dt_inicial" class="form-control">
-      </div>
-      <div class="col">
-        <label for="emp_dt_final">Data da saída</label>
-        <input type="date" id="emp_dt_final" class="form-control">
-      </div> 
-    </div>
+    <button type="button" class="btn btn-primary btn-lg" (click)="fnc_adiciona_Historico_Profissional()"><b style="font-size: 26px">+</b></button>
+
 
     <h3 class="text-primary mt-4">habilidades (Soft skills)</h3>
-    <div class="form-group">
-      <div class="form-row">
-        <div class="col">
-          <label for="sft_nome">Nome da habilidade</label>
-          <input type="text" id="sft_nome" class="form-control" placeholder="Liderança, praticidade">
-        </div>
-        <div class="col">
-          <label for="sft_descricao">Descrição</label>
-          <input type="text" id="sft_descricao" class="form-control" placeholder="sei liderar pessoas de todos os níveis">
+
+    <div formArrayName="lst_soft_skills" *ngFor="let infos of curriculoGroup.controls.lst_soft_skills?.value; let i = index">
+      <div class="form-group" formGroupName="lst_soft_skills">
+        <div class="form-row">
+          <div class="col">
+            <label for="sft_nome">Nome da habilidade</label>
+            <input type="text" id="sft_nome" class="form-control" placeholder="Liderança, praticidade" formControlName="Nome">
+          </div>
+          <div class="col">
+            <label for="sft_descricao">Descrição</label>
+            <input type="text" id="sft_descricao" class="form-control" placeholder="sei liderar pessoas de todos os níveis" formControlName="Descricao">
+          </div>
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Criar</button>
+    <button type="button" class="btn btn-primary btn-lg" (click)="fnc_adiciona_lst_soft_skills()"><b style="font-size: 26px">+</b></button>
+    <button type="submit" class="btn btn-primary d-block mt-4">Criar</button>
+
   </form>
 </div>
+
 <app-footer></app-footer>

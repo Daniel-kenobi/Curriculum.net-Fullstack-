@@ -37,14 +37,14 @@ namespace Curriculum.net.Controllers
 
         ///<summary>Rota para gerar um novo currículo (v1/api/inc - POST)</summary>
         [HttpPost("inc")] // v1/api/inc - POST - cria um novo curriculo
-      //  [FilterRequest]  // ASSINO A CHAMADA DO FILTRO NESSA ROTA
-       // [Authorize] // Requisito autorização por token
+                          //  [FilterRequest]  // ASSINO A CHAMADA DO FILTRO NESSA ROTA
+                          // [Authorize] // Requisito autorização por token
         public IActionResult Criar([FromBody] dto_curriculo adt)
         {
             try
             {
-                bll.bll_criaCurriculum(adt);
-                return Created(string.Empty, "Currículo criado com sucesso!");
+                /*bll.bll_criaCurriculum(adt);*/
+                return Created("inc", adt);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace Curriculum.net.Controllers
                      * PODE SER UM ATRIBUTO DO OBJETO, COMO NOME, EMAIL, E-mail, Telefone e etc */
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                    new Claim(ClaimTypes.Name, adt.Nome)
+                        new Claim(ClaimTypes.Name, adt.Nome)
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(20),
                     SigningCredentials = new SigningCredentials(symetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)

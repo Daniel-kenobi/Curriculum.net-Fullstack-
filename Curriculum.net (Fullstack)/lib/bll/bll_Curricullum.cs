@@ -17,7 +17,7 @@ namespace lib.bll
             if (string.IsNullOrEmpty(adt.Nome))
                 throw new Exception("Nome vazio");
 
-            if (string.IsNullOrEmpty(adt.telefone) && string.IsNullOrEmpty(adt.Email))
+            if (string.IsNullOrEmpty(adt.Telefone) && string.IsNullOrEmpty(adt.Email))
                 throw new Exception("Contatos inválidos");
         }
 
@@ -27,7 +27,7 @@ namespace lib.bll
             try
             {
                 bll_vld(adt);
-                str_lib.criaPDF(str_lib.criaHTML(adt));
+                str_lib.criaPDF(str_lib.criaHTML(adt), adt.Nome);
                 return true;
             }
             catch

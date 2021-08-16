@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { CurriculumModel, HistoricoProfissional, InfosAcademicas, SoftSkills } from '../../models/curriculo.model';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CurriculumModel, dto_endereco, HistoricoProfissional, InfosAcademicas, SoftSkills } from '../../models/curriculo.model';
 import { cepService } from '../../services/cep.service';
 import { curriculoService } from '../../services/curriculo.service';
 
@@ -15,40 +15,72 @@ export class HomeComponent implements OnInit {
   constructor(private frmBuilder: FormBuilder, private cep_service: cepService, private curriculo_service: curriculoService) {
     this.curriculoGroup = this.frmBuilder.group(
       {
+        ID: 0,
         Nome: [''],
         Email: [''],
         Telefone: [''],
-        CEP: [''],
+        Endereco: this.frmBuilder.group({
+          cep: [''],
+          Logradouro: [''],
+          Complemento: [''],
+          Bairro: [''],
+          Localidade: [''],
+          UF: ['']
+        }),
         FraseMotivacional: [''],
         Linkedin: [''],
         GitHub: [''],
         Instagram: [''],
-        lst_infos_academicas: new FormBuilder().array([
-          {
-            Nome_instituicao: [''],
-            TipoCurso: [''],
-            Curso: [''],
-            Descricao_aprendizado: [''],
-            DataInicio: [''],
-            DataConclusao: [''],
-          }
-        ]),
-        lst_Historico_Profissional: new FormBuilder().array([
-          {
-            Nome_empresa: [''],
-            Cargo: [''],
-            Descricao_cargo: [''],
-            emp_DataInicio: [''],
-            emp_DataSaida: [''],
-          }
-        ]),
-        lst_soft_skills: new FormBuilder().array([
-          {
-            Nome: [''],
-            Descricao: ['']
-          }
-        ])
+        lst_infos_academicas: this.frmBuilder.array([]),
+        lst_Historico_Profissional: this.frmBuilder.array([]),
+        lst_soft_skills: this.frmBuilder.array([])
       })
+  }
+
+  fnc_adiciona_infos_academicas() {
+    const infos = this.curriculoGroup.controls.lst_infos_academicas as FormArray;
+
+    if (infos.length == 3)
+      return;
+
+    infos.push(this.frmBuilder.group(
+      {
+        Nome_instituicao: [''],
+        TipoCurso: [''], 
+        Curso: [''],
+        Descricao_aprendizado: [''],
+        DataInicio: [''],
+        DataConclusao: ['']
+      }))
+  }
+
+  fnc_adiciona_Historico_Profissional() {
+    const infos = this.curriculoGroup.controls.lst_Historico_Profissional as FormArray;
+
+    if (infos.length == 3)
+      return;
+
+    infos.push(this.frmBuilder.group(
+      {
+        Nome_instituicao: [''],
+        Cargo: [''],
+        Descricao_cargo: [''],
+        DataInicio: [''],
+        DataSaida: [''],
+      }))
+  }
+
+  fnc_adiciona_lst_soft_skills() {
+    const infos = this.curriculoGroup.controls.lst_soft_skills as FormArray;
+
+    if (infos.length == 3)
+      return;
+
+    infos.push(this.frmBuilder.group(
+      {
+        Nome: [''],
+        Descricao: ['']
+      }))
   }
 
   ngOnInit(): void {
@@ -56,27 +88,8 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
+    const curriculo = new CurriculumModel();
 
-    var cep = this.curriculoGroup.get('CEP').value;
-    this.cep_service.fnc_busca_cep(cep).subscribe(x => { this.curriculo.Endereco = x})
-
-    this.curriculo.Nome = this.curriculoGroup.get('Nome').value;
-    this.curriculo.Email = this.curriculoGroup.get('Email').value;
-    this.curriculo.Telefone = this.curriculoGroup.get('Telefone').value;
-    this.curriculo.Endereco = this.curriculoGroup.get('Endereco').value;
-    this.curriculo.FraseMotivacional = this.curriculoGroup.get('FraseMotivacional').value;
-    this.curriculo.Linkedin = this.curriculoGroup.get('Linkedin').value;
-    this.curriculo.GitHub = this.curriculoGroup.get('GitHub').value;
-    this.curriculo.Instagram = this.curriculoGroup.get('Instagram').value;
-    this.curriculo.lst_infos_academicas = new Array<InfosAcademicas>();
-    this.curriculo.lst_Historico_Profissional = new Array<HistoricoProfissional>();
-    this.curriculo.lst_soft_skills = new Array<SoftSkills>();
-
-    console.log(this.curriculo);
-
-    // busca cep
-
-    // envia curriculo
-    this.curriculo_service.fnc_cria_curriculo(this.curriculo).subscribe(x => { console.log(x) }, (err) => { console.log(err) });
+    this.curriculo_service.fnc_cria_curriculo(curriculo).subscribe(x => { console.log(x) }, (err) => { console.log(err) });
   }
 }
