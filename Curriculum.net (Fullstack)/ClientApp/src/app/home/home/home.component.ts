@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { CurriculumModel, dto_endereco, HistoricoProfissional, InfosAcademicas, SoftSkills } from '../../models/curriculo.model';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CurriculumModel } from '../../models/curriculo.model';
 import { cepService } from '../../services/cep.service';
 import { curriculoService } from '../../services/curriculo.service';
 
@@ -16,11 +16,11 @@ export class HomeComponent implements OnInit {
     this.curriculoGroup = this.frmBuilder.group(
       {
         ID: 0,
-        Nome: [''],
-        Email: [''],
-        Telefone: [''],
+        Nome: ['', [Validators.required, Validators.minLength(3)]],
+        Email: ['', [Validators.email, Validators.required]],
+        Telefone: ['', [Validators.minLength(10), Validators.maxLength(11), Validators.required]],
         Endereco: this.frmBuilder.group({
-          cep: [''],
+          cep: ['', [Validators.required, Validators.minLength(8)]],
           Logradouro: [''],
           Complemento: [''],
           Bairro: [''],
@@ -45,12 +45,12 @@ export class HomeComponent implements OnInit {
 
     infos.push(this.frmBuilder.group(
       {
-        Nome_instituicao: [''],
-        TipoCurso: [''], 
-        Curso: [''],
-        Descricao_aprendizado: [''],
-        DataInicio: [''],
-        DataConclusao: ['']
+        Nome_instituicao: '',
+        TipoCurso: '',
+        Curso: '',
+        Descricao_aprendizado: '',
+        DataInicio: '',
+        DataConclusao: ''
       }))
   }
 
@@ -87,8 +87,28 @@ export class HomeComponent implements OnInit {
 
   }
 
-  onSubmit() {
+  fnc_cria_modelo(): CurriculumModel {
     const curriculo = new CurriculumModel();
+    curriculo.ID = this.curriculoGroup.controls['ID'].value;
+    curriculo.Nome = this.curriculoGroup.controls['Nome'].value;
+    curriculo.Email = this.curriculoGroup.controls['Email'].value;
+    curriculo.Telefone = this.curriculoGroup.controls['Telefone'].value;
+    curriculo.Endereco = this.curriculoGroup.controls['Endereco'].value;
+    curriculo.FraseMotivacional = this.curriculoGroup.controls['FraseMotivacional'].value;
+    curriculo.Linkedin = this.curriculoGroup.controls['Linkedin'].value;
+    curriculo.GitHub = this.curriculoGroup.controls['GitHub'].value;
+    curriculo.Instagram = this.curriculoGroup.controls['Instagram'].value;
+    curriculo.lst_infos_academicas = this.curriculoGroup.controls['lst_infos_academicas'].value;
+    curriculo.lst_Historico_Profissional = this.curriculoGroup.controls['lst_Historico_Profissional'].value;
+    curriculo.lst_soft_skills = this.curriculoGroup.controls['lst_soft_skills'].value;
+
+    return curriculo;
+  }    
+
+  onSubmit() {
+    const curriculo = this.fnc_cria_modelo();
+
+    console.log(curriculo);
 
     this.curriculo_service.fnc_cria_curriculo(curriculo).subscribe(x => { console.log(x) }, (err) => { console.log(err) });
   }

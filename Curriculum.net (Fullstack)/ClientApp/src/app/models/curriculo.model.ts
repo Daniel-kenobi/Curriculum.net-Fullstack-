@@ -9,9 +9,9 @@ export class CurriculumModel {
   Linkedin: string;
   GitHub: string;
   Instagram: string;
-  lst_infos_academicas: InfosAcademicas;
-  lst_Historico_Profissional: HistoricoProfissional;
-  lst_soft_skills: SoftSkills;
+  lst_infos_academicas: Array<InfosAcademicas>;
+  lst_Historico_Profissional: Array<HistoricoProfissional>;
+  lst_soft_skills: Array<SoftSkills>;
 }
 
 export class InfosAcademicas {
@@ -31,7 +31,7 @@ export class HistoricoProfissional {
   DataSaida: Date;
 }
 
-export  class dto_endereco {
+export class dto_endereco {
   cep: string;
   Logradouro: string;
   Complemento: string;

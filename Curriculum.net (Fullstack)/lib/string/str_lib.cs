@@ -20,7 +20,7 @@ namespace lib.str
         }
 
         ///<summary>Método que cria o código HTML do curriculo</summary>
-        public static string criaHTML(dto_curriculo infos)
+        public static string geraHtml(dto_curriculo infos)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -64,7 +64,7 @@ namespace lib.str
             else
                 sb.Append($"<p style = \"color: darkgray; font-size: 14px; text-align: center\">{infos.FraseMotivacional}</p>");
 
-            /*if (infos.lst_infos_academicas.Count > 0)
+            if (infos.lst_infos_academicas.Count > 0)
             {
                 sb.Append("<h2 style=\"color: steelblue;\"> Formação Acadêmica </h2>");
 
@@ -74,18 +74,10 @@ namespace lib.str
                     sb.Append($"<p style=\"color: darkgray;\">Concluído em {i.DataConclusao.ToString("dd/MM/yyyy")}</p>");
                     sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao_aprendizado}</p>");
                 }
-            }*/
-
-            if (infos.lst_infos_academicas != null)
-            {
-                sb.Append("<h2 style=\"color: steelblue;\"> Formação Acadêmica </h2>");
-
-                sb.Append($"<h3 style=\"color: black;\"> {infos.lst_infos_academicas.Nome_instituicao} • {infos.lst_infos_academicas.TipoCurso}</h3>");
-                sb.Append($"<p style=\"color: darkgray;\">Concluído em {infos.lst_infos_academicas.DataConclusao.ToString("dd/MM/yyyy")}</p>");
-                sb.Append($"<p style=\"color: darkgray;\"> {infos.lst_infos_academicas.Descricao_aprendizado}</p>");
             }
 
-            /*if (infos.lst_Historico_Profissional.Count > 0)
+           
+            if (infos.lst_Historico_Profissional.Count > 0)
             {
                 sb.Append("<h2 style=\"color: steelblue;\"> Histórico Profissional </h2>");
                 foreach (var i in infos.lst_Historico_Profissional)
@@ -94,20 +86,10 @@ namespace lib.str
                     sb.Append($"<p style=\"color: darkgray;\"> Entrada: {i.DataInicio.ToString("dd/MM/yyyy")} - Saída: {i.DataSaida.ToString("dd/MM/yyyy")}</p>");
                     sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao_cargo}</p>");
                 }
-            }*/
-
-            if (infos.lst_Historico_Profissional != null)
-            {
-                sb.Append("<h2 style=\"color: steelblue;\"> Histórico Profissional </h2>");
-
-                sb.Append($"<h3 style=\"color: black;\"> {infos.lst_Historico_Profissional.Nome_instituicao} • {infos.lst_Historico_Profissional.Cargo}</h3>");
-                sb.Append($"<p style=\"color: darkgray;\"> Entrada: {infos.lst_Historico_Profissional.DataInicio.ToString("dd/MM/yyyy")} - Saída: {infos.lst_Historico_Profissional.DataSaida.ToString("dd/MM/yyyy")}</p>");
-                sb.Append($"<p style=\"color: darkgray;\"> {infos.lst_Historico_Profissional.Descricao_cargo}</p>");
             }
 
 
-
-            /*if (infos.lst_soft_skills.Count > 0)
+            if (infos.lst_soft_skills.Count > 0)
             {
                 sb.Append("<h2 style=\"color: steelblue;\"> Habilidades </h2>");
 
@@ -116,14 +98,6 @@ namespace lib.str
                     sb.Append($"<h3 style=\"color: black;\"> {i.Nome}</h3>");
                     sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao}");
                 }
-            }*/
-
-            if (infos.lst_soft_skills != null)
-            {
-                sb.Append("<h2 style=\"color: steelblue;\"> Habilidades </h2>");
-
-                sb.Append($"<h3 style=\"color: black;\"> {infos.lst_soft_skills.Nome}</h3>");
-                sb.Append($"<p style=\"color: darkgray;\"> {infos.lst_soft_skills.Descricao}");
             }
 
             sb.Append("</body>");

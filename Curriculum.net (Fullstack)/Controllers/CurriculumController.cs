@@ -31,7 +31,7 @@ namespace Curriculum.net.Controllers
         {
             bll ??= new bll_Curricullum();
 
-            if (bll == null)
+            if (bll is null)
                 throw new Exception("Erro interno");
         }
 
@@ -39,11 +39,11 @@ namespace Curriculum.net.Controllers
         [HttpPost("inc")] // v1/api/inc - POST - cria um novo curriculo
                           //  [FilterRequest]  // ASSINO A CHAMADA DO FILTRO NESSA ROTA
                           // [Authorize] // Requisito autorização por token
-        public IActionResult Criar([FromBody] dto_curriculo adt)
+        public IActionResult criar([FromBody] dto_curriculo adt)
         {
             try
             {
-                /*bll.bll_criaCurriculum(adt);*/
+                bll.bll_criaCurriculo(adt);
                 return Created("inc", adt);
             }
             catch (Exception ex)
@@ -53,9 +53,9 @@ namespace Curriculum.net.Controllers
         }
 
         ///<summary>Rota para obter um token com base no nome do dono do currículo (v1/api/Token - POST)</summary>
-        [HttpPost("Token")]
+        [HttpPost("token")]
         [FilterRequest]
-        public IActionResult GetToken([FromBody] dto_curriculo adt)
+        public IActionResult getToken([FromBody] dto_curriculo adt)
         {
             try
             {
@@ -81,22 +81,6 @@ namespace Curriculum.net.Controllers
                     Token = token,
                     Description = "Token criado com sucesso"
                 });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex?.InnerException?.Message ?? ex.Message);
-            }
-        }
-
-        ///<summary>Rota que retorna uma view (HTML) do currículo (v1/api/HTMLCode - POST)</summary>
-        [HttpPost("HTMLCode")] // v1/api/HTMLCode - POST / retorna a view HTML do Curriculo
-        [FilterRequest] // ASSINO A CHAMADA DO FILTRO NESSA ROTA
-        [Authorize] // Requisito autenticação por token
-        public IActionResult ViewResult([FromBody] dto_curriculo adt)
-        {
-            try
-            {
-                return View(bll.bll_retornaHTMLCurricullum(adt));
             }
             catch (Exception ex)
             {

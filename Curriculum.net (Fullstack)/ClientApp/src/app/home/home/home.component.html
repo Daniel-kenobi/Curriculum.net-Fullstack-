@@ -5,19 +5,23 @@
     <div class="row">
       <div class="col">
         <label for="nome">Nome</label>
-        <input type="text" id="nome" class="form-control" placeholder="Nome" formControlName="Email">
+        <input type="text" id="nome" class="form-control" placeholder="Nome" formControlName="Nome">
+        <app-error *ngIf="curriculoGroup?.get('Nome')?.errors && curriculoGroup?.get('Nome')?.touched" mensagem="Nome inválido"></app-error>
       </div>
       <div class="col">
         <label for="email">Email</label>
         <input type="email" id="email" class="form-control" placeholder="email@mail.com" formControlName="Email">
+        <app-error *ngIf="curriculoGroup?.get('Email')?.errors && curriculoGroup?.get('Email')?.touched" mensagem="Email inválido"></app-error>
       </div>
       <div class="col">
         <label for="tel">Telefone</label>
-        <input type="tel" class="form-control" id="tel" placeholder="(31)9999-9999" formControlName="Telefone">
+        <input type="tel" class="form-control" id="tel" placeholder="(31)99999-9999" formControlName="Telefone">
+        <app-error *ngIf="curriculoGroup?.get('Telefone')?.errors && curriculoGroup?.get('Telefone')?.touched" mensagem="Nome inválido"></app-error>
       </div>
       <div class="col" formGroupName="Endereco">
         <label for="cep">Cep</label>
         <input type="text" class="form-control" placeholder="99999-999" id="cep" formControlName="cep">
+        <app-error *ngIf="curriculoGroup?.get('Endereco.cep')?.errors && curriculoGroup?.get('Endereco.cep')?.touched" mensagem="Cep inválido"></app-error>
       </div>
     </div>
 
@@ -46,7 +50,7 @@
 
     <h3 class="text-primary mt-4">Formações acadêmicas</h3>
     <div formArrayName="lst_infos_academicas" *ngFor="let infos of curriculoGroup.controls.lst_infos_academicas?.value; let i = index">
-      <div class="form-group" formGroupName="lst_infos_academicas" style="margin-bottom: 40px">
+      <ng-container [formGroupName]="i" style="margin-bottom: 40px">
         <div class="form-row">
           <div class="col">
             <label for="instituicao">Nome da instituição</label>
@@ -75,13 +79,13 @@
             <input type="date" id="dt_final" class="form-control" formControlName="DataConclusao">
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
     <button type="button" class="btn btn-primary btn-lg " (click)="fnc_adiciona_infos_academicas()"><b style="font-size: 26px">+</b></button>
 
     <h3 class="text-primary mt-4">histórico profissional</h3>
     <div formArrayName="lst_Historico_Profissional" *ngFor="let infos of curriculoGroup.controls.lst_Historico_Profissional?.value; let i = index">
-      <div class="form-group" formGroupName="lst_Historico_Profissional" style="margin-bottom: 40px">
+      <ng-container [formGroupName]="i" style="margin-bottom: 40px">
         <div class="form-row">
           <div class="col">
             <label for="emp_instituicao">Nome da instituição</label>
@@ -106,7 +110,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
     <button type="button" class="btn btn-primary btn-lg" (click)="fnc_adiciona_Historico_Profissional()"><b style="font-size: 26px">+</b></button>
 
@@ -114,7 +118,7 @@
     <h3 class="text-primary mt-4">habilidades (Soft skills)</h3>
 
     <div formArrayName="lst_soft_skills" *ngFor="let infos of curriculoGroup.controls.lst_soft_skills?.value; let i = index">
-      <div class="form-group" formGroupName="lst_soft_skills">
+      <ng-container [formGroupName]="i" style="margin-bottom: 40px">
         <div class="form-row">
           <div class="col">
             <label for="sft_nome">Nome da habilidade</label>
@@ -125,7 +129,7 @@
             <input type="text" id="sft_descricao" class="form-control" placeholder="sei liderar pessoas de todos os níveis" formControlName="Descricao">
           </div>
         </div>
-      </div>
+      </ng-container>
     </div>
     <button type="button" class="btn btn-primary btn-lg" (click)="fnc_adiciona_lst_soft_skills()"><b style="font-size: 26px">+</b></button>
     <button type="submit" class="btn btn-primary d-block mt-4">Criar</button>

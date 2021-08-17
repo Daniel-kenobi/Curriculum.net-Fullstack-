@@ -54,13 +54,13 @@ namespace lib.dto
         // LISTA DE INFORMAÇÕES ACADEMICAS E DE HISTÓRICO PROFISSIONAIS
 
         /// <summary>Lista informações academicas - estudos, faculdades...</summary>
-        public InfosAcademicas lst_infos_academicas { get; set; }
+        public List<InfosAcademicas> lst_infos_academicas { get; set; }
 
         /// <summary>Lista de hitórico profissional - Locais de trabalho, freelances...</summary>
-        public HistoricoProfissional lst_Historico_Profissional { get; set; }
+        public List<HistoricoProfissional> lst_Historico_Profissional { get; set; }
 
         /// <summary>Lista de habilidades que você possui e aprendeu </summary>
-        public SoftSkills lst_soft_skills { get; set; }
+        public List<SoftSkills> lst_soft_skills { get; set; }
         #endregion
     }
 
