@@ -40,24 +40,24 @@ export class HomeComponent implements OnInit {
   fnc_adiciona_infos_academicas() {
     const infos = this.curriculoGroup.controls.lst_infos_academicas as FormArray;
 
-    if (infos.length == 3)
+    if (infos.length >= 3)
       return;
 
     infos.push(this.frmBuilder.group(
       {
-        Nome_instituicao: '',
-        TipoCurso: '',
-        Curso: '',
-        Descricao_aprendizado: '',
-        DataInicio: '',
-        DataConclusao: ''
+        Nome_instituicao: [''],
+        TipoCurso: [''],
+        Curso: [''],
+        Descricao_aprendizado: [''],
+        DataInicio: [''],
+        DataConclusao: ['']
       }))
   }
 
   fnc_adiciona_Historico_Profissional() {
     const infos = this.curriculoGroup.controls.lst_Historico_Profissional as FormArray;
 
-    if (infos.length == 3)
+    if (infos.length >= 3)
       return;
 
     infos.push(this.frmBuilder.group(
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
   fnc_adiciona_lst_soft_skills() {
     const infos = this.curriculoGroup.controls.lst_soft_skills as FormArray;
 
-    if (infos.length == 3)
+    if (infos.length >= 3)
       return;
 
     infos.push(this.frmBuilder.group(
@@ -103,13 +103,19 @@ export class HomeComponent implements OnInit {
     curriculo.lst_soft_skills = this.curriculoGroup.controls['lst_soft_skills'].value;
 
     return curriculo;
-  }    
+  }
 
   onSubmit() {
     const curriculo = this.fnc_cria_modelo();
 
     console.log(curriculo);
 
-    this.curriculo_service.fnc_cria_curriculo(curriculo).subscribe(x => { console.log(x) }, (err) => { console.log(err) });
+    this.curriculo_service.fnc_cria_curriculo(curriculo).subscribe((x) => {
+
+      var file = new Blob(x, { type: 'application/pdf' });
+      var fileURL = URL.createObjectURL(file);
+      window.open(fileURL, '_blank');
+
+    }, (err) => { console.log(err) });
   }
 }

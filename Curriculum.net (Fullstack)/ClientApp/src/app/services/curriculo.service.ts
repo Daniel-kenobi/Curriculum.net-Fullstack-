@@ -13,8 +13,11 @@ export class curriculoService {
     this.baseUrl = baseUrl;
   }
 
-  fnc_cria_curriculo(curriculo: CurriculumModel): Observable<CurriculumModel> {
-    curriculo.Nome = "teste"
-    return this.http.post<CurriculumModel>(`${this.baseUrl}v1/api/inc`, curriculo as CurriculumModel);
+  fnc_cria_curriculo(curriculo: CurriculumModel): Observable<any> {
+    const httpOptions = {
+      'responseType': 'arraybuffer' as 'json'
+    };
+
+    return this.http.post<any>(`${this.baseUrl}v1/api/inc`, curriculo as CurriculumModel, httpOptions);
   }
 }

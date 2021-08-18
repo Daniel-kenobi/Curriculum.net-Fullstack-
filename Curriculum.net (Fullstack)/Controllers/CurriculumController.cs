@@ -43,8 +43,7 @@ namespace Curriculum.net.Controllers
         {
             try
             {
-                bll.bll_criaCurriculo(adt);
-                return Created("inc", adt);
+                return Ok(bll.bll_criaCurriculo(adt));
             }
             catch (Exception ex)
             {

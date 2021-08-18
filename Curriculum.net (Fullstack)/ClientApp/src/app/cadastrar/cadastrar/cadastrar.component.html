@@ -1,0 +1,47 @@
+<body style="background-color: #F5F5F5; height: 600px">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <div class="col">
+          <img class="img-fluid" src="../../../assets/WorkStationBG.jpg" alt="escritório" />
+      </div>
+
+      <div class="col">
+        <div class="justify-content-center bg-light mt-5 border-left-0 rounded">
+          <h4 class="text-primary text-center">Cadastre-se, e comece a usar agora!</h4>
+
+          <form class="form-group  align-self-center" (ngSubmit)="fnc_cadastra()" [formGroup]="cadastrarForm">
+            <div class="form-group col-xs-4">
+              <label for="nome">Nome*</label>
+              <input type="text" class="form-control mr-" id="nome" placeholder="João Augusto" formControlName="Nome">
+              <app-error *ngIf="cadastrarForm?.get('Nome')?.errors && cadastrarForm?.get('Nome')?.touched" mensagem="Nome inválido"></app-error>
+            </div>
+
+            <div class="form-group">
+              <label for="Email">Email*</label>
+              <input type="email" class="form-control" id="Email" placeholder="email@mail.com" formControlName="Email">
+              <app-error *ngIf="cadastrarForm?.get('Email')?.errors && cadastrarForm?.get('Email')?.touched" mensagem="Email inválido"></app-error>
+            </div>
+            <div class="form-group">
+              <label for="Senha">Senha*</label>
+              <input type="password" class="form-control" id="Senha" placeholder="Senha" formControlName="Senha">
+              <app-error *ngIf="cadastrarForm?.get('Senha')?.errors && cadastrarForm?.get('Senha')?.touched" mensagem="Senha inválida"></app-error>
+
+            </div>
+            <div class="form-group">
+              <label for="ConfirmacaoSenha">Confirmação de senha*</label>
+              <input type="password" class="form-control" id="ConfirmacaoSenha" placeholder="Senha" formControlName="ConfirmacaoSenha">
+              <app-error *ngIf="cadastrarForm?.get('ConfirmacaoSenha')?.errors && cadastrarForm?.get('ConfirmacaoSenha')?.touched" mensagem="Senha inválida"></app-error>
+              <app-error *ngIf="cadastrarForm?.hasError('naoCoincide') && cadastrarForm?.get('ConfirmacaoSenha')?.touched && cadastrarForm?.get('Senha')?.touched" mensagem="Senhas não coincidem"></app-error>
+            </div>
+
+            <a class="d-block text-primary" routerLink="/login">Já tem conta ? Entre agora!</a>
+            <button type="submit" class="mt-2 btn btn-primary">Criar</button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>

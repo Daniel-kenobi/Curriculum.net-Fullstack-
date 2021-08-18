@@ -108,20 +108,26 @@ namespace lib.str
         }
 
         ///<summary>étodo que cria o PDF com base no HTML recebido</summary>
-        public static string criaPDF(string html, string nome)
+        public static byte[] criaPDF(string html, string nome)
         {
             HtmlToPdf converter = new HtmlToPdf();
 
-            string path_arqs = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "arquivos");
+            string dir_arqs = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "arquivos");
+            string arq_path = Path.Combine(dir_arqs, $"{DateTime.Now.ToString("dd-MM-yyyy-HH-mm")}-{nome}-Curricullum.pdf");
 
-            if (!Directory.Exists(path_arqs))
-                Directory.CreateDirectory(path_arqs);
+            if (!Directory.Exists(dir_arqs))
+                Directory.CreateDirectory(dir_arqs);
 
             PdfDocument document = converter.ConvertHtmlString(html);
-            document.Save(Path.Combine(path_arqs, $"{DateTime.Now.ToString("dd-MM-yyyy:HH:mm")}-{nome}-Curricullum.pdf"));
+            document.Save(arq_path);
             document.Close();
 
-            return html;
+            byte[] arquivo = File.ReadAllBytes(arq_path);
+
+            /*if (File.Exists(arq_path))
+                File.Delete(arq_path);*/
+
+            return arquivo ?? null;
         }
     }
 }

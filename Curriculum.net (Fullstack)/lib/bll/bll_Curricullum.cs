@@ -21,10 +21,10 @@ namespace lib.bll
         }
 
         /// <summary>Lógica de criação</summary>
-        public void bll_criaCurriculo(dto_curriculo adt)
+        public byte[] bll_criaCurriculo(dto_curriculo adt)
         {
             bll_valida(adt);
-            str_lib.criaPDF(str_lib.geraHtml(adt), adt.Nome);
+            return str_lib.criaPDF(str_lib.geraHtml(adt), adt.Nome);
         }
 
         /// <summary>Lógica que retorna a view do currículo (Não cria o PDF do mesmo)</summary>

@@ -18,7 +18,12 @@ import { ErrorComponent } from './error/error.component';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  ],
+  exports: [
+    NavbarComponent,
+    FooterComponent,
+    ErrorComponent
   ]
 })
 export class HomeModule { }
