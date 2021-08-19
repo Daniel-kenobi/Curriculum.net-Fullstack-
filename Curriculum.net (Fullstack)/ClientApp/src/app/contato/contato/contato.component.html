@@ -5,24 +5,24 @@
     <h3 class="text-primary">Informações básicas</h3>
     <div class="row">
       <div class="col">
-        <label class="text-primary" for="nome">Nome</label>
+        <label for="nome">Nome</label>
         <input type="text" id="nome" class="form-control" placeholder="Nome" formControlName="Nome">
         <app-error *ngIf="mensagemGroup?.get('Nome')?.errors && mensagemGroup?.get('Nome')?.touched" mensagem="Nome inválido"></app-error>
       </div>
       <div class="col">
-        <label class="text-primary" for="email">Email</label>
+        <label for="email">Email</label>
         <input type="email" id="email" class="form-control" placeholder="email@mail.com" formControlName="Email">
         <app-error *ngIf="mensagemGroup?.get('Email')?.errors && mensagemGroup?.get('Email')?.touched" mensagem="Email inválido"></app-error>
       </div>
       <div class="col">
-        <label class="text-primary" for="tel">Telefone</label>
+        <label for="tel">Telefone</label>
         <input type="tel" class="form-control" id="tel" placeholder="(31)99999-9999" formControlName="Telefone">
         <app-error *ngIf="mensagemGroup?.get('Telefone')?.errors && mensagemGroup?.get('Telefone')?.touched" mensagem="Telefone inválido"></app-error>
       </div>
     </div>
     <div class="form-group mt-2">
-      <label class="text-primary" for="exampleFormControlTextarea1">Example textarea</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="Mensagem"></textarea>
+      <label for="mensagem">Example textarea</label>
+      <textarea class="form-control" id="mensagem" rows="3" formControlName="Mensagem"></textarea>
       <app-error *ngIf="mensagemGroup?.get('Mensagem')?.errors && mensagemGroup?.get('Mensagem')?.touched" mensagem="Mensagem inválida, minimo 5 caracteres"></app-error>
     </div>
     <input class="btn btn-primary" type="submit" value="Enviar">

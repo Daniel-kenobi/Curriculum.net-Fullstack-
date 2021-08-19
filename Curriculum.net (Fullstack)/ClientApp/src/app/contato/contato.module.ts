@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ContatoRoutingModule } from './contato-routing.module';
 import { ContatoComponent } from './contato/contato.component';
-import { HomeModule } from '../home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ErrorModule } from '../error/error.module';
+import { MenuModule } from '../menu/menu.module';
 
 @NgModule({
   declarations: [
@@ -13,8 +14,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ContatoRoutingModule,
-    HomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ErrorModule,
+    MenuModule
   ]
 })
 export class ContatoModule { }

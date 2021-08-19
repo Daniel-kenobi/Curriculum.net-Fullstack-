@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <body style="background-color: #F5F5F5; height: 600px">
   <div class="container">
     <div class="row align-items-center">
@@ -32,9 +33,10 @@
               <label for="ConfirmacaoSenha">Confirmação de senha*</label>
               <input type="password" class="form-control" id="ConfirmacaoSenha" placeholder="Senha" formControlName="ConfirmacaoSenha">
               <app-error *ngIf="cadastrarForm?.get('ConfirmacaoSenha')?.errors && cadastrarForm?.get('ConfirmacaoSenha')?.touched" mensagem="Senha inválida"></app-error>
-              <app-error *ngIf="cadastrarForm?.hasError('naoCoincide') && cadastrarForm?.get('ConfirmacaoSenha')?.touched && cadastrarForm?.get('Senha')?.touched" mensagem="Senhas não coincidem"></app-error>
+              <app-error *ngIf="cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value && cadastrarForm?.get('ConfirmacaoSenha')?.value  && cadastrarForm?.get('Senha')?.value" mensagem="Senhas não coincidem">
+              </app-error>
             </div>
-
+             
             <a class="d-block text-primary" routerLink="/login">Já tem conta ? Entre agora!</a>
             <button type="submit" class="mt-2 btn btn-primary">Criar</button>
           </form>
@@ -45,3 +47,4 @@
     </div>
   </div>
 </body>
+<app-footer></app-footer>

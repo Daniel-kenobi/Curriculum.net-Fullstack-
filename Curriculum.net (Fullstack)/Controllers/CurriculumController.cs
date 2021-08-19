@@ -9,7 +9,6 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Curriculum.net.Controllers
 {
@@ -53,8 +52,7 @@ namespace Curriculum.net.Controllers
 
         ///<summary>Rota para obter um token com base no nome do dono do currículo (v1/api/Token - POST)</summary>
         [HttpPost("token")]
-        [FilterRequest]
-        public IActionResult getToken([FromBody] dto_curriculo adt)
+        public IActionResult getToken([FromBody] dto_usuario adt)
         {
             try
             {
@@ -66,7 +64,8 @@ namespace Curriculum.net.Controllers
                      * PODE SER UM ATRIBUTO DO OBJETO, COMO NOME, EMAIL, E-mail, Telefone e etc */
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, adt.Nome)
+                        new Claim(ClaimTypes.Name, adt.Nome),
+                        new Claim(ClaimTypes.Email, adt.Email)
                     }),
                     Expires = DateTime.UtcNow.AddMinutes(20),
                     SigningCredentials = new SigningCredentials(symetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)
@@ -75,11 +74,7 @@ namespace Curriculum.net.Controllers
                 var tokenGenerated = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
                 var token = jwtSecurityTokenHandler.WriteToken(tokenGenerated);
 
-                return Ok(new
-                {
-                    Token = token,
-                    Description = "Token criado com sucesso"
-                });
+                return Ok(new { Token = token });
             }
             catch (Exception ex)
             {

@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { CadastrarRoutingModule } from './cadastrar-routing.module';
 import { CadastrarComponent } from './cadastrar/cadastrar.component';
-import { HomeModule } from '../home/home.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuModule } from '../menu/menu.module';
+import { ErrorModule } from '../error/error.module';
 
 
 @NgModule({
@@ -12,8 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     CadastrarRoutingModule,
-    HomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MenuModule,
+    ErrorModule
   ]
 })
 export class CadastrarModule { }

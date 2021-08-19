@@ -1,14 +1,9 @@
-import { AbstractControl, ValidatorFn } from "@angular/forms";
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export function senhaValidator(control: AbstractControl): ValidatorFn  {
-  try {
-
+export function senhaValidator(control: FormGroup): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
     let Senha = control.get('Senha').value;
-    let ConfirmacaoSenha = control.get('ConfirmacaoSenha').value
+    let ConfirmacaoSenha = control.get('ConfirmacaoSenha').value;
     return Senha === ConfirmacaoSenha ? null : { naoCoincide: true }
-
-  } catch (e) {
-
   }
-
 }

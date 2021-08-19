@@ -3,27 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ErrorComponent } from './error/error.component';
+import { MenuModule } from '../menu/menu.module';
+import { ErrorModule } from '../error/error.module';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    NavbarComponent,
-    FooterComponent,
-    ErrorComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule,
+    MenuModule,
+    ErrorModule
   ],
-  exports: [
-    NavbarComponent,
-    FooterComponent,
-    ErrorComponent
-  ]
 })
 export class HomeModule { }

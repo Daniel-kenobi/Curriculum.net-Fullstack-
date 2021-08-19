@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { cadastroModel } from '../../models/cadastro.model';
+import { authService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cadastrar',
@@ -9,14 +10,14 @@ import { cadastroModel } from '../../models/cadastro.model';
 export class CadastrarComponent implements OnInit {
   cadastrarForm: FormGroup;
 
-  constructor(private frmBuilder: FormBuilder) { }
+  constructor(private frmBuilder: FormBuilder, private service: authService) { }
 
   ngOnInit() {
     this.cadastrarForm = this.frmBuilder.group({
       Nome: ['', [Validators.required, Validators.minLength(3)]],
       Email: ['', [Validators.required, Validators.email]],
-      Senha: ['', Validators.required, Validators.minLength(6)],
-      ConfirmacaoSenha: ['', Validators.required, Validators.minLength(6)]
+      Senha: ['', [Validators.required, Validators.minLength(6)]],
+      ConfirmacaoSenha: ['', [Validators.required, Validators.minLength(6)]]
     })
   }
 
@@ -31,8 +32,10 @@ export class CadastrarComponent implements OnInit {
   }
 
   fnc_cadastra() {
-    //this.cadastrarForm.controls['Nome'].setValue("Daniel....");
-    console.log("concluido")
+    this.service.fnc_cadastrar(this.fnc_monta_modelo()).subscribe(
+      x => { console.log(x) }
+    ),
+      (err) => console.log(err)
   }
 
 }
