@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { cadastroModel } from '../../models/cadastro.model';
+import { usuarioModel } from '../../models/usuario.model';
 import { authService } from '../../services/auth.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { authService } from '../../services/auth.service';
 export class CadastrarComponent implements OnInit {
   cadastrarForm: FormGroup;
 
-  constructor(private frmBuilder: FormBuilder, private service: authService) { }
+  constructor(private frmBuilder: FormBuilder, private service: authService, private router: Router) { }
 
   ngOnInit() {
     this.cadastrarForm = this.frmBuilder.group({
@@ -31,10 +33,19 @@ export class CadastrarComponent implements OnInit {
     return cadastro;
   }
 
+  fnc_cria_usuario(usr: cadastroModel): usuarioModel {
+    const rst = new usuarioModel();
+    rst.Nome = usr.Nome;
+    rst.Email = usr.Email;
+
+    return rst;
+  }
+
   fnc_cadastra() {
-    this.service.fnc_cadastrar(this.fnc_monta_modelo()).subscribe(
-      x => { console.log(x) }
-    ),
+    this.service.fnc_cadastrar(this.fnc_monta_modelo()).subscribe(x => {
+      this.service.fnc_altera_usuario_logado(this.fnc_cria_usuario(x));
+      this.router.navigateByUrl('home');
+    }),
       (err) => console.log(err)
   }
 

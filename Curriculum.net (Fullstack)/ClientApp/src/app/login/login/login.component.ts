@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { usuarioModel } from '../../models/usuario.model';
 import { authService } from '../../services/auth.service';
 
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginModel: FormGroup;
 
-  constructor(private frmBuilder: FormBuilder, private service: authService) { }
+  constructor(private frmBuilder: FormBuilder, private authService: authService, private router: Router) { }
 
   ngOnInit() {
     this.loginModel = this.frmBuilder.group({
@@ -29,8 +30,9 @@ export class LoginComponent implements OnInit {
   }
 
   fnc_login() {
-    this.service.fnc_logar(this.fnc_cria_modelo()).subscribe(x => {
-      this.service.fnc_altera_usuario_logado(x);
+    this.authService.fnc_logar(this.fnc_cria_modelo()).subscribe(x => {
+      this.authService.fnc_altera_usuario_logado(x);
+      this.router.navigateByUrl('home');
     }, (err) => console.log(err))
   }
 }

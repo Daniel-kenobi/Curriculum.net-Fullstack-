@@ -53,6 +53,9 @@ namespace Curriculum.net.Controllers
         {
             try
             {
+                bll.bll_cadastro(adt);
+                adt.Senha = string.Empty;
+
                 return Created("cadastrar", adt);
             }
             catch (Exception ex)

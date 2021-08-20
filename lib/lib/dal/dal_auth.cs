@@ -57,7 +57,7 @@ namespace lib.lib.dal
                 }
 
                 dalcon.CloseReader();
-                dalcon.CloseConn(acn == null);
+                dalcon.CloseConn(true, fecharConexao: acn != null);
 
                 return usr;
             }
@@ -67,7 +67,7 @@ namespace lib.lib.dal
             }
         }
 
-        private dto_usuario dal_max_cod(dal_conexao acn = null)
+        public dto_usuario dal_max_cod(dal_conexao acn = null)
         {
             dal_conexao dalcon = acn ?? new dal_conexao();
             dalcon.OpenConn(acn == null);
@@ -76,7 +76,7 @@ namespace lib.lib.dal
 
             try
             {
-                vsql = "SELECT MAX(ID) AS ID FORM usuairo";
+                vsql = "SELECT MAX(ID) AS ID FROM usuario";
 
 
                 dalcon.CreateCommand(vsql);
@@ -108,12 +108,12 @@ namespace lib.lib.dal
 
             try
             {
-                if ((dal_login(adt, acn)?.ID ?? 0) > 0)
-                    throw new Exception("Usuário já cadastrado");
+                /*if ((dal_login(adt, dalcon)?.ID ?? 0) > 0)
+                    throw new Exception("Usuário já cadastrado");*/
 
 
                 vsql = 
-                    "INSERT INTO USUARIOS " +
+                    "INSERT INTO USUARIO " +
                     "(" +
                     "   ID, Nome, Email, Senha, Telefone, " +
                     "   Instagram, Linkedin, Github" +
@@ -127,7 +127,7 @@ namespace lib.lib.dal
 
                 dalcon.CreateCommand(vsql);
 
-                dalcon.AddParams("?ID", dal_max_cod(acn).ID);
+                dalcon.AddParams("?ID", adt.ID);
                 dalcon.AddParams("?Nome", adt.Nome);
                 dalcon.AddParams("?Email", adt.Email);
                 dalcon.AddParams("?Senha", adt.Senha);

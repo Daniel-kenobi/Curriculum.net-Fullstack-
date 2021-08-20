@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CurriculumModel } from '../../models/curriculo.model';
+import { authService } from '../../services/auth.service';
 import { cepService } from '../../services/cep.service';
 import { curriculoService } from '../../services/curriculo.service';
 
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   curriculoGroup: FormGroup;
   curriculo: CurriculumModel = new CurriculumModel();
 
-  constructor(private frmBuilder: FormBuilder, private cep_service: cepService, private curriculo_service: curriculoService) {
+  constructor(private frmBuilder: FormBuilder, private cepService: cepService, private curriculoService: curriculoService, private authService: authService) {
     this.curriculoGroup = this.frmBuilder.group(
       {
         ID: 0,
@@ -34,7 +35,13 @@ export class HomeComponent implements OnInit {
         lst_infos_academicas: this.frmBuilder.array([]),
         lst_Historico_Profissional: this.frmBuilder.array([]),
         lst_soft_skills: this.frmBuilder.array([])
-      })
+      });
+  }
+
+  ngOnInit() {
+    this.curriculoGroup.controls['Nome'].setValue(this.authService.fnc_retorna_usuario_logado() && this.authService.fnc_retorna_usuario_logado().Nome || '');
+    this.curriculoGroup.controls['Email'].setValue(this.authService.fnc_retorna_usuario_logado() && this.authService.fnc_retorna_usuario_logado().Email || '');
+    this.curriculoGroup.controls['Telefone'].setValue(this.authService.fnc_retorna_usuario_logado() && this.authService.fnc_retorna_usuario_logado().Telefone || '');
   }
 
   fnc_adiciona_infos_academicas() {
@@ -83,10 +90,6 @@ export class HomeComponent implements OnInit {
       }))
   }
 
-  ngOnInit(): void {
-
-  }
-
   fnc_cria_modelo(): CurriculumModel {
     const curriculo = new CurriculumModel();
     curriculo.ID = this.curriculoGroup.controls['ID'].value;
@@ -110,7 +113,7 @@ export class HomeComponent implements OnInit {
 
     console.log(curriculo);
 
-    this.curriculo_service.fnc_cria_curriculo(curriculo).subscribe((x) => {
+    this.curriculoService.fnc_cria_curriculo(curriculo).subscribe((x) => {
 
       var file = new Blob(x, { type: 'application/pdf' });
       var fileURL = URL.createObjectURL(file);

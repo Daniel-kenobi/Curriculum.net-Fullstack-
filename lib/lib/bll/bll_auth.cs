@@ -40,6 +40,8 @@ namespace lib.bll
         public void bll_cadastro(dto_usuario adt, dal_conexao acn = null)
         {
             adt.Senha = bll_senha_hash(adt.Senha);
+            adt.ID = dal.dal_max_cod(acn).ID;
+
             dal.dal_cadastro(adt, acn);
         }
     }

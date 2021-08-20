@@ -12,7 +12,7 @@ import { usuarioModel } from "../models/usuario.model";
 export class authService implements OnInit {
 
   private baseUrl: string;
-  private usrLogado: usuarioModel = null;
+  private usrLogado: usuarioModel;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private router: Router) {
     this.baseUrl = baseUrl + "v1/api/auth/";
@@ -39,6 +39,6 @@ export class authService implements OnInit {
   }
 
   fnc_logout() {
-    this.router.navigateByUrl('homepage').then(x => window.location.reload())
+    this.router.navigateByUrl('home').then(x => window.location.reload())
   }
 }

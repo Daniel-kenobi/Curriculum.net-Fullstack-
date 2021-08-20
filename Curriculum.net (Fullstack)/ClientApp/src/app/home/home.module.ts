@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuModule } from '../menu/menu.module';
 import { ErrorModule } from '../error/error.module';
+import { authService } from '../services/auth.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,6 @@ import { ErrorModule } from '../error/error.module';
     ReactiveFormsModule,
     MenuModule,
     ErrorModule
-  ],
+  ]
 })
 export class HomeModule { }
