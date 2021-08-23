@@ -12,14 +12,14 @@ import { usuarioModel } from "../models/usuario.model";
 export class authService implements OnInit {
 
   private baseUrl: string;
-  private usrLogado: usuarioModel;
+  public usrLogado: usuarioModel;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private router: Router) {
     this.baseUrl = baseUrl + "v1/api/auth/";
   }
 
   ngOnInit() {
-    this.usrLogado
+
   }
 
   fnc_altera_usuario_logado(usuario: usuarioModel) {

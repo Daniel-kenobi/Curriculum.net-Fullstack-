@@ -1,6 +1,10 @@
 export class cadastroModel {
-  Nome: string;
-  Email: string;
-  Senha: string;
-  ConfirmacaoSenha: string;
+  nome: string;
+  telefone: string;
+  instagram: string;
+  linkedin: string;
+  github: string;
+  email: string;
+  senha: string;
+  confirmacaoSenha: string;
 }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light  border-bottom border-primary">
   <a class="navbar-brand d-inline-block align-top" routerLink="/home">
     <img img src="../../../assets/cv.png" width="30" height="30" alt="Curriculum logo"/>
     Curriculum.net
@@ -16,7 +16,7 @@
         <a class="nav-link text-primary" [ngClass]="{'text-secondary font-weight-bold': this?.router?.url === '/login'}"  href="#" routerLink="/login">Login</a>
       </li>
       <!--Mudar rota depois para o perfil do usuário-->
-      <li class="nav-item" *ngIf="authService?.fnc_retorna_usuario_logado()?.Nome">
+      <li class="nav-item" *ngIf="authService?.fnc_retorna_usuario_logado()?.nome">
         <a class="nav-link text-primary" [ngClass]="{'text-secondary font-weight-bold': this?.router?.url === '/perfil'}" href="#" routerLink="/perfil">{{nome}}</a>
       </li>
     </ul>

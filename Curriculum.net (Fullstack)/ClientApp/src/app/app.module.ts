@@ -19,9 +19,11 @@ import { authService } from './services/auth.service';
     AppRoutingModule,
     RouterModule
   ],
+  bootstrap: [
+    AppComponent
+  ],
   providers: [
     authService
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
 export class AppModule { }

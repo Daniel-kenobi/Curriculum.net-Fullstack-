@@ -4,7 +4,7 @@
     <div class="row align-items-center">
 
       <div class="col">
-          <img class="img-fluid" src="../../../assets/WorkStationBG.jpg" alt="escritório" />
+        <img class="img-fluid" src="../../../assets/WorkStationBG.jpg" alt="escritório" />
       </div>
 
       <div class="col">
@@ -12,33 +12,58 @@
           <h4 class="text-primary text-center">Cadastre-se, e comece a usar agora!</h4>
 
           <form class="form-group  align-self-center" (ngSubmit)="fnc_cadastra()" [formGroup]="cadastrarForm">
-            <div class="form-group col-xs-4">
-              <label for="nome">Nome*</label>
-              <input type="text" class="form-control mr-" id="nome" placeholder="João Augusto" formControlName="Nome">
-              <app-error *ngIf="cadastrarForm?.get('Nome')?.errors && cadastrarForm?.get('Nome')?.touched" mensagem="Nome inválido"></app-error>
+
+            <div class="form-row">
+              <div class="col">
+                <label for="nome">Nome*</label>
+                <input type="text" class="form-control" id="nome" placeholder="João Augusto" formControlName="Nome">
+                <app-error *ngIf="cadastrarForm?.get('Nome')?.errors && cadastrarForm?.get('Nome')?.touched" mensagem="Nome inválido"></app-error>
+              </div>
+              <div class="col">
+                <label for="nome">Telefone*</label>
+                <input type="tel" class="form-control" id="Telefone" placeholder="(31)99999-9999" formControlName="Telefone">
+                <app-error *ngIf="cadastrarForm?.get('Telefone')?.errors && cadastrarForm?.get('Telefone')?.touched" mensagem="Telefone inválido"></app-error>
+              </div>
             </div>
+
+            <div class="form-row">
+              <div class="col">
+                <label for="nome">Instagram</label>
+                <input type="text" class="form-control" id="Instagram" placeholder="@Instagram" formControlName="Instagram">
+              </div>
+              <div class="col">
+                <label for="nome">Linkedin</label>
+                <input type="text" class="form-control" id="Linkedin" placeholder="Linkedin" formControlName="Linkedin">
+              </div>
+              <div class="col">
+                <label for="nome">GitHub</label>
+                <input type="text" class="form-control" id="GitHub" placeholder="GitHub" formControlName="GitHub">
+              </div>
+            </div>
+
 
             <div class="form-group">
               <label for="Email">Email*</label>
               <input type="email" class="form-control" id="Email" placeholder="email@mail.com" formControlName="Email">
               <app-error *ngIf="cadastrarForm?.get('Email')?.errors && cadastrarForm?.get('Email')?.touched" mensagem="Email inválido"></app-error>
             </div>
-            <div class="form-group">
-              <label for="Senha">Senha*</label>
-              <input type="password" class="form-control" id="Senha" placeholder="Senha" formControlName="Senha">
-              <app-error *ngIf="cadastrarForm?.get('Senha')?.errors && cadastrarForm?.get('Senha')?.touched" mensagem="Senha inválida"></app-error>
 
+            <div class="form-row">
+              <div class="col">
+                <label for="Senha">Senha*</label>
+                <input type="password" class="form-control" id="Senha" placeholder="Senha" formControlName="Senha">
+                <app-error *ngIf="cadastrarForm?.get('Senha')?.errors && cadastrarForm?.get('Senha')?.touched" mensagem="Senha inválida"></app-error>
+              </div>
+              <div class="col">
+                <label for="ConfirmacaoSenha">Confirmação de senha*</label>
+                <input type="password" class="form-control" id="ConfirmacaoSenha" placeholder="Senha" formControlName="ConfirmacaoSenha">
+                <app-error *ngIf="cadastrarForm?.get('ConfirmacaoSenha')?.errors && cadastrarForm?.get('ConfirmacaoSenha')?.touched" mensagem="Senha inválida"></app-error>
+                <app-error *ngIf="cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value && cadastrarForm?.get('ConfirmacaoSenha')?.value  && cadastrarForm?.get('Senha')?.value" mensagem="Senhas não coincidem">
+                </app-error>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="ConfirmacaoSenha">Confirmação de senha*</label>
-              <input type="password" class="form-control" id="ConfirmacaoSenha" placeholder="Senha" formControlName="ConfirmacaoSenha">
-              <app-error *ngIf="cadastrarForm?.get('ConfirmacaoSenha')?.errors && cadastrarForm?.get('ConfirmacaoSenha')?.touched" mensagem="Senha inválida"></app-error>
-              <app-error *ngIf="cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value && cadastrarForm?.get('ConfirmacaoSenha')?.value  && cadastrarForm?.get('Senha')?.value" mensagem="Senhas não coincidem">
-              </app-error>
-            </div>
-             
             <a class="d-block text-primary" routerLink="/login">Já tem conta ? Entre agora!</a>
-            <button type="submit" class="mt-2 btn btn-primary" [disabled]="(cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value) || (cadastrarForm?.get('ConfirmacaoSenha')?.value  || cadastrarForm?.get('Senha')?.value)">Criar</button>
+            <button type="submit" class="mt-2 btn btn-primary" [disabled]="(cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value) && (cadastrarForm?.get('ConfirmacaoSenha')?.value  || cadastrarForm?.get('Senha')?.value)">Criar</button>
           </form>
 
         </div>

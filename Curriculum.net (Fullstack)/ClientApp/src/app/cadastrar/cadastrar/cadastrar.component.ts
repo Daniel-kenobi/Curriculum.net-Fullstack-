@@ -17,6 +17,10 @@ export class CadastrarComponent implements OnInit {
   ngOnInit() {
     this.cadastrarForm = this.frmBuilder.group({
       Nome: ['', [Validators.required, Validators.minLength(3)]],
+      Telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]],
+      Instagram: [''],
+      Linkedin: [''],
+      GitHub: [''],
       Email: ['', [Validators.required, Validators.email]],
       Senha: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmacaoSenha: ['', [Validators.required, Validators.minLength(6)]]
@@ -25,18 +29,26 @@ export class CadastrarComponent implements OnInit {
 
   fnc_monta_modelo(): cadastroModel {
     const cadastro = new cadastroModel();
-    cadastro.Nome = this.cadastrarForm.controls['Nome'].value;
-    cadastro.Email = this.cadastrarForm.controls['Email'].value;
-    cadastro.Senha = this.cadastrarForm.controls['Senha'].value;
-    cadastro.ConfirmacaoSenha = this.cadastrarForm.controls['ConfirmacaoSenha'].value;
+    cadastro.nome = this.cadastrarForm.controls['Nome'].value;
+    cadastro.email = this.cadastrarForm.controls['Email'].value;
+    cadastro.senha = this.cadastrarForm.controls['Senha'].value;
+    cadastro.confirmacaoSenha = this.cadastrarForm.controls['ConfirmacaoSenha'].value;
+    cadastro.telefone = this.cadastrarForm.controls['Telefone'].value;
+    cadastro.instagram = this.cadastrarForm.controls['Instagram'].value;
+    cadastro.linkedin = this.cadastrarForm.controls['Linkedin'].value;
+    cadastro.github = this.cadastrarForm.controls['GitHub'].value;
 
     return cadastro;
   }
 
   fnc_cria_usuario(usr: cadastroModel): usuarioModel {
     const rst = new usuarioModel();
-    rst.Nome = usr.Nome;
-    rst.Email = usr.Email;
+    rst.nome = usr.nome;
+    rst.email = usr.email;
+    rst.github = usr.github;
+    rst.telefone = usr.telefone;
+    rst.instagram = usr.instagram;
+    rst.linkedin = usr.linkedin;
 
     return rst;
   }
@@ -45,8 +57,7 @@ export class CadastrarComponent implements OnInit {
     this.service.fnc_cadastrar(this.fnc_monta_modelo()).subscribe(x => {
       this.service.fnc_altera_usuario_logado(this.fnc_cria_usuario(x));
       this.router.navigateByUrl('home');
-    }),
-      (err) => console.log(err)
+    }), (err) => console.log(err)
   }
 
 }

@@ -11,16 +11,16 @@ export class NavbarComponent implements OnInit {
   nome: string;
 
   constructor(private router: Router, private authService: authService) {
-    this.fnc_forca_atualziacao_usuario();
+    this.fnc_forca_atualizacao_usuario();
   }
 
   ngOnInit() {
-
+    this.fnc_forca_atualizacao_usuario();
   }
 
-  fnc_forca_atualziacao_usuario() {
+  fnc_forca_atualizacao_usuario() {
     if (this.authService.fnc_retorna_usuario_logado())
-      this.nome = this.authService.fnc_retorna_usuario_logado().Nome;
+      this.nome = this.authService.fnc_retorna_usuario_logado().nome;
   }
 
 }

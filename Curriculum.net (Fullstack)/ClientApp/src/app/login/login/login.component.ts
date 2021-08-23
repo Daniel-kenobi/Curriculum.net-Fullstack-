@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
 
   fnc_cria_modelo(): usuarioModel {
     const usuario = new usuarioModel();
-    usuario.Email = this.loginModel.controls['Email'].value;
-    usuario.Senha = this.loginModel.controls['Senha'].value;
+    usuario.email = this.loginModel.controls['Email'].value;
+    usuario.senha = this.loginModel.controls['Senha'].value;
 
     return usuario;
   }
 
   fnc_login() {
     this.authService.fnc_logar(this.fnc_cria_modelo()).subscribe(x => {
-      this.authService.fnc_altera_usuario_logado(x);
+      this.authService.usrLogado = x as usuarioModel;
       this.router.navigateByUrl('home');
     }, (err) => console.log(err))
   }
