@@ -128,13 +128,13 @@ namespace lib.lib.dal
                 dalcon.CreateCommand(vsql);
 
                 dalcon.AddParams("?ID", adt.ID);
-                dalcon.AddParams("?Nome", adt?.Nome ?? string.Empty);
-                dalcon.AddParams("?Email", adt?.Email ?? string.Empty);
-                dalcon.AddParams("?Senha", adt?.Senha ?? string.Empty);
-                dalcon.AddParams("?Telefone", adt?.Telefone ?? string.Empty);
-                dalcon.AddParams("?Instagram", adt?.Instagram ?? string.Empty);
-                dalcon.AddParams("?Linkedin", adt?.Linkedin ?? string.Empty);
-                dalcon.AddParams("?Github", adt?.Github ?? string.Empty);
+                dalcon.AddParams("?Nome", adt?.Nome);
+                dalcon.AddParams("?Email", adt?.Email);
+                dalcon.AddParams("?Senha", adt?.Senha);
+                dalcon.AddParams("?Telefone", adt?.Telefone);
+                dalcon.AddParams("?Instagram", adt?.Instagram);
+                dalcon.AddParams("?Linkedin", adt?.Linkedin);
+                dalcon.AddParams("?Github", adt?.Github);
 
                 dalcon.ExecSQL();
                 dalcon.CloseConn(acn == null);

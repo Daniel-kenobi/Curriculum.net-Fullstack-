@@ -38,7 +38,7 @@ export class HomeComponent implements AfterViewChecked {
         GitHub: [''],
         Instagram: [''],
         lst_infos_academicas: this.frmBuilder.array([]),
-        lst_Historico_Profissional: this.frmBuilder.array([]),
+        lst_historico_profissional: this.frmBuilder.array([]),
         lst_soft_skills: this.frmBuilder.array([])
       });
   }
@@ -62,12 +62,12 @@ export class HomeComponent implements AfterViewChecked {
 
     infos.push(this.frmBuilder.group(
       {
-        Nome_instituicao: [''],
-        TipoCurso: [''],
-        Curso: [''],
-        Descricao_aprendizado: [''],
-        DataInicio: [''],
-        DataConclusao: ['']
+        nome_instituicao: [''],
+        tipocurso: [''],
+        curso: [''],
+        descricao_aprendizado: [''],
+        datainicio: [''],
+        dataconclusao: ['']
       }))
   }
 
@@ -81,7 +81,7 @@ export class HomeComponent implements AfterViewChecked {
   }
 
   fnc_adiciona_Historico_Profissional() {
-    const infos = this.curriculoGroup.controls.lst_Historico_Profissional as FormArray;
+    const infos = this.curriculoGroup.controls.lst_historico_profissional as FormArray;
 
     if (infos.length >= 3)
       return;
@@ -97,7 +97,7 @@ export class HomeComponent implements AfterViewChecked {
   }
 
   fnc_remove_Historico_Profissional() {
-    const infos = this.curriculoGroup.controls.lst_Historico_Profissional as FormArray;
+    const infos = this.curriculoGroup.controls.lst_historico_profissional as FormArray;
 
     if (infos.length <= 0)
       return;
@@ -139,7 +139,7 @@ export class HomeComponent implements AfterViewChecked {
     curriculo.GitHub = this.curriculoGroup.controls['GitHub'].value;
     curriculo.Instagram = this.curriculoGroup.controls['Instagram'].value;
     curriculo.lst_infos_academicas = this.curriculoGroup.controls['lst_infos_academicas'].value;
-    curriculo.lst_Historico_Profissional = this.curriculoGroup.controls['lst_Historico_Profissional'].value;
+    curriculo.lst_Historico_Profissional = this.curriculoGroup.controls['lst_historico_profissional'].value;
     curriculo.lst_soft_skills = this.curriculoGroup.controls['lst_soft_skills'].value;
 
     return curriculo;

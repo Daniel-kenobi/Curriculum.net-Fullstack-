@@ -18,6 +18,7 @@ export class CadastrarComponent implements OnInit {
     this.cadastrarForm = this.frmBuilder.group({
       Nome: ['', [Validators.required, Validators.minLength(3)]],
       Telefone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]],
+      Cep: [''],
       Instagram: [''],
       Linkedin: [''],
       GitHub: [''],

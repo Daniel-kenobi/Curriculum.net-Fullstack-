@@ -11,6 +11,7 @@ import { authService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginModel: FormGroup;
+  erroLogin: object;
 
   constructor(private frmBuilder: FormBuilder, private authService: authService, private router: Router) { }
 
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
     this.authService.fnc_logar(this.fnc_cria_modelo()).subscribe(x => {
       this.authService.usrLogado = x as usuarioModel;
       this.router.navigateByUrl('home');
-    }, (err) => console.log(err))
+      this.erroLogin = null;
+    }, (err) => { this.erroLogin = err })
   }
 }

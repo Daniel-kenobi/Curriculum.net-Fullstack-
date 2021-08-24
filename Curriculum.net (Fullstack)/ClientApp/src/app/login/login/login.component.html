@@ -19,7 +19,9 @@
             <div class="form-group">
               <input type="password" class="form-control form-control-lg" id="Senha" placeholder="Senha" formControlName="Senha">
             </div>
+            <app-error *ngIf="erroLogin" mensagem="Usuário e/ou senha inválido(s)"></app-error>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
+
             <a class="d-block text-primary" routerLink="/cadastrar">Não tem uma conta ? Cadastre agora!</a>
           </form>
         </div>
