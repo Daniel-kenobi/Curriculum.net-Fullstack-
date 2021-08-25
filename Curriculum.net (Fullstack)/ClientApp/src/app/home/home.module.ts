@@ -6,7 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuModule } from '../menu/menu.module';
 import { ErrorModule } from '../error/error.module';
-import { authService } from '../services/auth.service';
+import { DialogModule } from '../dialog/dialog.module';
+import { DialogService } from '../dialog/dialogservice.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,11 @@ import { authService } from '../services/auth.service';
     HomeRoutingModule,
     ReactiveFormsModule,
     MenuModule,
-    ErrorModule
+    ErrorModule,
+    DialogModule
+  ],
+  providers: [
+    DialogService
   ]
 })
 export class HomeModule { }

@@ -1,13 +1,15 @@
 import { Component, AfterViewChecked } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DialogService } from '../../dialog/dialogservice.service';
 import { CurriculumModel } from '../../models/curriculo.model';
 import { authService } from '../../services/auth.service';
 import { cepService } from '../../services/cep.service';
 import { curriculoService } from '../../services/curriculo.service';
 
+
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
 })
 export class HomeComponent implements AfterViewChecked {
   curriculoGroup: FormGroup;
@@ -18,7 +20,8 @@ export class HomeComponent implements AfterViewChecked {
 
 
 
-  constructor(private frmBuilder: FormBuilder, private cepService: cepService, private curriculoService: curriculoService, private authService: authService) {
+  constructor(private frmBuilder: FormBuilder, private cepService: cepService, private curriculoService: curriculoService, private authService: authService,
+    private dialogService: DialogService) {
     this.curriculoGroup = this.frmBuilder.group(
       {
         ID: 0,
@@ -157,5 +160,9 @@ export class HomeComponent implements AfterViewChecked {
       window.open(fileURL, '_blank');
 
     }, (err) => { console.log(err) });
+  }
+
+  fnc_abre_dialogo() {
+    this.dialogService.fnc_open_dialog();
   }
 }
