@@ -84,7 +84,7 @@
     <button type="button" class="btn btn-primary btn-lg mt-2 mr-2" (click)="fnc_adiciona_infos_academicas()"><b style="font-size: 26px">+</b></button>
     <button type="button" class="btn btn-danger btn-lg mt-2" (click)="fnc_remove_infos_academicas()"><b style="font-size: 26px">-</b></button>
 
-    <h3 class="text-primary mt-4">histórico profissional</h3>
+    <h3 class="text-primary mt-4">Histórico profissional</h3>
     <div formArrayName="lst_historico_profissional">
       <div style="padding: 15px" class="border border-secondary mt-5" *ngFor="let infos_profissionais of curriculoGroup?.get('lst_historico_profissional')?.controls; let pr = index" [formGroupName]="pr">
         <div class="form-row">
@@ -110,6 +110,9 @@
               <input type="date" id="emp_dt_final" class="form-control" formControlName="DataSaida">
             </div>
           </div>
+          <div class="form-row" id="atual" color="primary">
+            <mat-checkbox formControlName="atual">Emprego atual</mat-checkbox>
+          </div>
         </div>
       </div>
     </div>
@@ -117,18 +120,17 @@
     <button type="button" class="btn btn-danger btn-lg mt-2" (click)="fnc_remove_Historico_Profissional()"><b style="font-size: 26px">-</b></button>
 
 
-    <h3 class="text-primary mt-4">habilidades (Soft skills)</h3>
-
+    <h3 class="text-primary mt-4">Habilidades</h3>
     <div formArrayName="lst_soft_skills">
       <div style="padding: 15px" class="border border-secondary mt-5" *ngFor="let infos_skills of curriculoGroup?.get('lst_soft_skills')?.controls; let sk = index" [formGroupName]="sk">
         <div class="form-row">
           <div class="col">
-            <label for="sft_nome">Nome da habilidade</label>
-            <input type="text" id="sft_nome" class="form-control" placeholder="Liderança, praticidade" formControlName="Nome">
+            <label for="sft_nome">Habilidade</label>
+            <input type="text" id="sft_nome" class="form-control" placeholder="Excel, programação C++" formControlName="Nome">
           </div>
           <div class="col">
             <label for="sft_descricao">Descrição</label>
-            <input type="text" id="sft_descricao" class="form-control" placeholder="sei liderar pessoas de todos os níveis" formControlName="Descricao">
+            <input type="text" id="sft_descricao" class="form-control" placeholder="Excel avançado, programação avançada" formControlName="Descricao">
           </div>
         </div>
       </div>
@@ -136,8 +138,55 @@
     <button type="button" class="btn btn-primary btn-lg mt-2 mr-2" (click)="fnc_adiciona_lst_soft_skills()"><b style="font-size: 26px">+</b></button>
     <button type="button" class="btn btn-danger btn-lg mt-2" (click)="fnc_remove_lst_soft_skills()"><b style="font-size: 26px">-</b></button>
 
-    <button type="button" mat-button (click)="fnc_abre_dialogo()">Open dialog</button>
-    <!--<button type="submit" class="btn btn-primary d-block mt-4">Criar</button>-->
+
+    <h3 class="text-primary mt-4">Qualidades</h3>
+    <div formArrayName="lst_qualidades">
+      <div style="padding: 15px" class="border border-secondary mt-5" *ngFor="let infos_qualidades of curriculoGroup?.get('lst_qualidades')?.controls; let ql = index" [formGroupName]="ql">
+        <div class="form-row">
+          <div class="col">
+            <label for="qlt_nome">Qualidade</label>
+            <input type="text" id="qlt_nome" class="form-control" placeholder="Criatividade" formControlName="Nome">
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg mt-2 mr-2" (click)="fnc_adiciona_lst_qualidades()"><b style="font-size: 26px">+</b></button>
+    <button type="button" class="btn btn-danger btn-lg mt-2" (click)="fnc_remove_lst_qualidades()"><b style="font-size: 26px">-</b></button>
+
+    <h3 class="text-primary mt-4">Idiomas</h3>
+    <div formArrayName="lst_idiomas">
+      <div style="padding: 15px" class="border border-secondary mt-5" *ngFor="let infos_idiomas of curriculoGroup?.get('lst_idiomas')?.controls; let id = index" [formGroupName]="id">
+        <div class="form-row">
+          <div class="col">
+            <label for="idm_idioma">Idioma</label>
+            <input type="text" id="idm_idioma" class="form-control" placeholder="Ucrâniano" formControlName="Idioma">
+          </div>
+          <div class="col-md6 mt-3">
+            <mat-form-field>
+              <mat-select name="nivelForm" placeholder="Nivel" formControlName="Nivel">
+                <mat-option [value]="0">Básico</mat-option>
+                <mat-option [value]="1">Intermediario</mat-option>
+                <mat-option [value]="2">Avançado</mat-option>
+                <mat-option [value]="3">Fluente</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg mt-2 mr-2" (click)="fnc_adiciona_lst_idiomas()"><b style="font-size: 26px">+</b></button>
+    <button type="button" class="btn btn-danger btn-lg mt-2" (click)="fnc_remove_lst_idiomas()"><b style="font-size: 26px">-</b></button>
+
+    <div class="d-block">
+      <mat-form-field>
+        <mat-select name="templateForm" placeholder="Template" formControlName="template">
+          <mat-option [value]="0">Clássico</mat-option>
+          <mat-option [value]="1">Moderno</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button type="submit" class="btn btn-primary d-block mt-4">Criar</button>
 
   </form>
 </div>

@@ -8,6 +8,7 @@ import { MenuModule } from '../menu/menu.module';
 import { ErrorModule } from '../error/error.module';
 import { DialogModule } from '../dialog/dialog.module';
 import { DialogService } from '../dialog/dialogservice.service';
+import { MatSelectModule, MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { DialogService } from '../dialog/dialogservice.service';
     ReactiveFormsModule,
     MenuModule,
     ErrorModule,
-    DialogModule
+    DialogModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [
     DialogService

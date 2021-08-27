@@ -62,6 +62,34 @@ namespace lib.dto
         /// <summary>Lista de habilidades que você possui e aprendeu </summary>
         public List<SoftSkills> lst_soft_skills { get; set; }
         #endregion
+        public List<idiomas> lst_Idiomas { get; set; }
+        public List<qualidade> lst_qualidades { get; set; }
+        public e_template_curriculo template { get; set; }
+    }
+
+    public enum e_nivel_idioma
+    {
+        basico,
+        intermediario,
+        avancado,
+        fluente
+    }
+
+    public class idiomas
+    {
+        public string Idioma { get; set; }
+        public e_nivel_idioma Nivel { get; set; }
+    }
+
+    public class qualidade
+    {
+        public string Nome { get; set; }
+    }
+
+    public enum e_template_curriculo
+    {
+        classico,
+        moderno
     }
 
     /// <summary>objeto das informações academicas</summary>

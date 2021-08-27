@@ -42,7 +42,8 @@ namespace Curriculum.net.Controllers
         {
             try
             {
-                return Ok(bll.bll_criaCurriculo(adt));
+                byte[] fileBytes = bll.bll_criaCurriculo(adt);
+                return File(fileBytes, "application/pdf", "Curricullum");
             }
             catch (Exception ex)
             {

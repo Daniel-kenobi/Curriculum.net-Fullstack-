@@ -11,10 +11,7 @@ export class DialogService {
 
   fnc_open_dialog() {
     return this.dialog.open(DialogComponent, {
-      panelClass: 'container',
-      data: { 
-        msg: "Works"
-      }
+      panelClass: 'container'
     });
   }
 }

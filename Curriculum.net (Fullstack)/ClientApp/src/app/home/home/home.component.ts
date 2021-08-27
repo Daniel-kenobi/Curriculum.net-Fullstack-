@@ -15,8 +15,8 @@ export class HomeComponent implements AfterViewChecked {
   curriculoGroup: FormGroup;
   curriculo: CurriculumModel = new CurriculumModel();
   private FrasePadrao: string = "Me encantaria encontrar uma vaga para essa empresa que é uma instituição que admiro tanto. Além disso, acredito que minha desenvoltura " +
-  "natural com pessoas, ótima comunicação, e jeito cuidadoso se provarão muito úteis. Gostaria de poder falar sobre como posso contribuir para" +
-  " essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!"
+    "natural com pessoas, ótima comunicação, e jeito cuidadoso se provarão muito úteis. Gostaria de poder falar sobre como posso contribuir para" +
+    " essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!"
 
 
 
@@ -42,12 +42,15 @@ export class HomeComponent implements AfterViewChecked {
         Instagram: [''],
         lst_infos_academicas: this.frmBuilder.array([]),
         lst_historico_profissional: this.frmBuilder.array([]),
-        lst_soft_skills: this.frmBuilder.array([])
+        lst_soft_skills: this.frmBuilder.array([]),
+        lst_qualidades: this.frmBuilder.array([]),
+        lst_idiomas: this.frmBuilder.array([]),
+        template: ['']
       });
   }
 
   ngAfterViewChecked() {
-    if(this.authService.fnc_retorna_usuario_logado()) {
+    if (this.authService.fnc_retorna_usuario_logado()) {
       this.curriculoGroup.controls['Nome'].setValue(this.authService.fnc_retorna_usuario_logado().nome);
       this.curriculoGroup.controls['Email'].setValue(this.authService.fnc_retorna_usuario_logado().email);
       this.curriculoGroup.controls['Telefone'].setValue(this.authService.fnc_retorna_usuario_logado().telefone);
@@ -59,9 +62,6 @@ export class HomeComponent implements AfterViewChecked {
 
   fnc_adiciona_infos_academicas() {
     const infos = this.curriculoGroup.controls.lst_infos_academicas as FormArray;
-
-    if (infos.length >= 3)
-      return;
 
     infos.push(this.frmBuilder.group(
       {
@@ -86,16 +86,14 @@ export class HomeComponent implements AfterViewChecked {
   fnc_adiciona_Historico_Profissional() {
     const infos = this.curriculoGroup.controls.lst_historico_profissional as FormArray;
 
-    if (infos.length >= 3)
-      return;
-
     infos.push(this.frmBuilder.group(
       {
         Nome_instituicao: ['', [Validators.required]],
         Cargo: ['', [Validators.required]],
         Descricao_cargo: ['', [Validators.required]],
         DataInicio: ['', [Validators.required]],
-        DataSaida: ['', [Validators.required]]
+        DataSaida: [''],
+        atual: ['']
       }))
   }
 
@@ -111,13 +109,10 @@ export class HomeComponent implements AfterViewChecked {
   fnc_adiciona_lst_soft_skills() {
     const infos = this.curriculoGroup.controls.lst_soft_skills as FormArray;
 
-    if (infos.length >= 3)
-      return;
-
     infos.push(this.frmBuilder.group(
       {
-        Nome: [''],
-        Descricao: ['']
+        Nome: ['', [Validators.required]],
+        Descricao: ['', [Validators.required]]
       }))
   }
 
@@ -129,6 +124,45 @@ export class HomeComponent implements AfterViewChecked {
 
     infos.removeAt(infos.length - 1);
   }
+
+  fnc_adiciona_lst_idiomas() {
+    const infos = this.curriculoGroup.controls.lst_idiomas as FormArray;
+
+    infos.push(this.frmBuilder.group(
+      {
+        Idioma: ['', [Validators.required]],
+        Nivel: ['', [Validators.required]]
+      }))
+  }
+
+  fnc_remove_lst_idiomas() {
+    const infos = this.curriculoGroup.controls.lst_idiomas as FormArray;
+
+    if (infos.length <= 0)
+      return;
+
+    infos.removeAt(infos.length - 1)
+  }
+
+
+  fnc_adiciona_lst_qualidades() {
+    const infos = this.curriculoGroup.controls.lst_qualidades as FormArray;
+
+    infos.push(this.frmBuilder.group(
+      {
+        Nome: ['', [Validators.required]]
+      }))
+  }
+
+  fnc_remove_lst_qualidades() {
+    const infos = this.curriculoGroup.controls.lst_qualidades as FormArray;
+
+    if (infos.length <= 0)
+      return;
+
+    infos.removeAt(infos.length - 1)
+  }
+
 
   fnc_cria_modelo(): CurriculumModel {
     const curriculo = new CurriculumModel();
@@ -144,7 +178,9 @@ export class HomeComponent implements AfterViewChecked {
     curriculo.lst_infos_academicas = this.curriculoGroup.controls['lst_infos_academicas'].value;
     curriculo.lst_Historico_Profissional = this.curriculoGroup.controls['lst_historico_profissional'].value;
     curriculo.lst_soft_skills = this.curriculoGroup.controls['lst_soft_skills'].value;
-
+    curriculo.lst_idiomas = this.curriculoGroup.controls['lst_idiomas'].value;
+    curriculo.lst_qualidades = this.curriculoGroup.controls['lst_qualidades'].value;
+    curriculo.template = this.curriculoGroup.controls['template'].value;
     return curriculo;
   }
 
@@ -155,14 +191,10 @@ export class HomeComponent implements AfterViewChecked {
 
     this.curriculoService.fnc_cria_curriculo(curriculo).subscribe((x) => {
 
-      var file = new Blob(x, { type: 'application/pdf' });
+      var file = new Blob([x], { type: 'application/pdf' });
       var fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank');
 
     }, (err) => { console.log(err) });
-  }
-
-  fnc_abre_dialogo() {
-    this.dialogService.fnc_open_dialog();
   }
 }

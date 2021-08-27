@@ -27,89 +27,141 @@ namespace lib.str
         ///<summary>Método que cria o código HTML do curriculo</summary>
         public static string geraHtml(dto_curriculo infos)
         {
-            StringBuilder sb = new StringBuilder();
-
-            infos.Endereco = RetornaCep(infos.Endereco.cep);
-
-            sb.Append("<!DOCTYPE html>");
-            sb.Append("<html>");
-            sb.Append("<head>");
-
-            sb.Append("<meta charset=\"UTF-8\"/>");
-            sb.Append("<style> body { font-family: Arial, Helvetica, sans-serif; margin: 30px 80px 70px 80px} </style>");
-
-            sb.Append("</head>");
-            sb.Append("<body>");
-
-            sb.Append($"<h1 style=\"color:black; text-align: center\"> {infos.Nome} </h1>");
-
-            sb.Append($"<p style=\"font-size: 16px; text-align: center\"><b> {infos.Email} • {infos.Telefone} ");
-
-            if (!string.IsNullOrEmpty(infos.Endereco.cep))
-                sb.Append($"• {infos.Endereco.Localidade} - {infos.Endereco.UF} ");
-
-            if (!string.IsNullOrEmpty(infos.Github) && !string.Equals(infos.Github, "string"))
-                sb.Append($"• Github: {infos.Github} ");
-
-            if (!string.IsNullOrEmpty(infos.Linkedin) && !string.Equals(infos.Linkedin, "string"))
-                sb.Append($"• Linkedin: {infos.Linkedin} ");
-
-            if (!string.IsNullOrEmpty(infos.Instagram) && !string.Equals(infos.Instagram, "string"))
-                sb.Append($"• Instagram: {infos.Instagram} ");
-
-            sb.Append("</b></p>");
-
-
-            if (string.Equals(infos.FraseMotivacional, "string") || string.IsNullOrEmpty(infos.FraseMotivacional))
+            switch (infos.template)
             {
-                sb.Append("<p style = \"color: darkgray; font-size: 14px; text-align: center\"> Me encantaria encontrar uma vaga para essa empresa que é uma instituição que admiro tanto. Além disso, acredito que minha desenvoltura ");
-                sb.Append("natural com pessoas, ótima comunicação, e jeito cuidadoso se provarão muito úteis. Gostaria de poder falar sobre como posso contribuir para");
-                sb.Append(" essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!</p>");
+                case e_template_curriculo.classico:
+                    return classico();
+
+                case e_template_curriculo.moderno:
+                    return moderno();
+
+                default:
+                    return string.Empty;
             }
-            else
-                sb.Append($"<p style = \"color: darkgray; font-size: 14px; text-align: center\">{infos.FraseMotivacional}</p>");
 
-            if (infos.lst_infos_academicas.Count > 0)
+
+            string classico()
             {
-                sb.Append("<h2 style=\"color: steelblue;\"> Formação Acadêmica </h2>");
+                StringBuilder sb = new StringBuilder();
 
-                foreach (var i in infos.lst_infos_academicas)
+                infos.Endereco = RetornaCep(infos.Endereco.cep);
+
+                sb.Append("<!DOCTYPE html>");
+                sb.Append("<html>");
+                sb.Append("<head>");
+
+                sb.Append("<meta charset=\"UTF-8\"/>");
+                sb.Append("<style> body { font-family: Arial, Helvetica, sans-serif; margin: 30px 80px 70px 80px} </style>");
+
+                sb.Append("</head>");
+                sb.Append("<body>");
+
+                sb.Append($"<h1 style=\"color:black; text-align: center\"> {infos.Nome} </h1>");
+
+                sb.Append($"<p style=\"font-size: 16px; text-align: center\"><b> {infos.Email} • {infos.Telefone} ");
+
+                if (!string.IsNullOrEmpty(infos.Endereco.cep))
+                    sb.Append($"• {infos.Endereco.Localidade} - {infos.Endereco.UF} ");
+
+                if (!string.IsNullOrEmpty(infos.Github) && !string.Equals(infos.Github, "string"))
+                    sb.Append($"• Github: {infos.Github} ");
+
+                if (!string.IsNullOrEmpty(infos.Linkedin) && !string.Equals(infos.Linkedin, "string"))
+                    sb.Append($"• Linkedin: {infos.Linkedin} ");
+
+                if (!string.IsNullOrEmpty(infos.Instagram) && !string.Equals(infos.Instagram, "string"))
+                    sb.Append($"• Instagram: {infos.Instagram} ");
+
+                sb.Append("</b></p>");
+
+                if (infos.lst_Idiomas.Count > 0)
                 {
-                    sb.Append($"<h3 style=\"color: black;\"> {i.Nome_instituicao} • {i.TipoCurso}</h3>");
-                    sb.Append($"<p style=\"color: darkgray;\">Concluído em {i.DataConclusao.ToString("dd/MM/yyyy")}</p>");
-                    sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao_aprendizado}</p>");
-                }
-            }
+                    sb.Append("<h2 style=\"color: steelblue;\"> Idiomas </h2>");
 
-           
-            if (infos.lst_Historico_Profissional.Count > 0)
-            {
-                sb.Append("<h2 style=\"color: steelblue;\"> Histórico Profissional </h2>");
-                foreach (var i in infos.lst_Historico_Profissional)
+                    foreach (var i in infos.lst_Idiomas)
+                    {
+                        sb.Append($"<p style=\"color: black;\"> {i.Idioma} - {i.Nivel}</p>");
+                    }
+                }
+
+                if (string.Equals(infos.FraseMotivacional, "string") || string.IsNullOrEmpty(infos.FraseMotivacional))
                 {
-                    sb.Append($"<h3 style=\"color: black;\"> {i.Nome_instituicao} • {i.Cargo}</h3>");
-                    sb.Append($"<p style=\"color: darkgray;\"> Entrada: {i.DataInicio.ToString("dd/MM/yyyy")} - Saída: {i.DataSaida.ToString("dd/MM/yyyy")}</p>");
-                    sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao_cargo}</p>");
+                    sb.Append("<p style = \"color: darkgray; font-size: 14px; text-align: center\"> Me encantaria encontrar uma vaga para essa empresa que é uma instituição que admiro tanto. Além disso, acredito que minha desenvoltura ");
+                    sb.Append("natural com pessoas, ótima comunicação, e jeito cuidadoso se provarão muito úteis. Gostaria de poder falar sobre como posso contribuir para");
+                    sb.Append(" essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!</p>");
                 }
-            }
+                else
+                    sb.Append($"<p style = \"color: darkgray; font-size: 14px; text-align: center\">{infos.FraseMotivacional}</p>");
 
-
-            if (infos.lst_soft_skills.Count > 0)
-            {
-                sb.Append("<h2 style=\"color: steelblue;\"> Habilidades </h2>");
-
-                foreach (var i in infos.lst_soft_skills)
+                if (infos.lst_infos_academicas.Count > 0)
                 {
-                    sb.Append($"<h3 style=\"color: black;\"> {i.Nome}</h3>");
-                    sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao}");
+                    sb.Append("<h2 style=\"color: steelblue;\"> Formação Acadêmica </h2>");
+
+                    foreach (var i in infos.lst_infos_academicas)
+                    {
+                        sb.Append($"<h3 style=\"color: black;\"> {i.Nome_instituicao} • {i.TipoCurso}</h3>");
+                        sb.Append($"<p style=\"color: darkgray;\">Concluído em {i.DataConclusao.ToString("dd/MM/yyyy")}</p>");
+                        sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao_aprendizado}</p>");
+                    }
                 }
+
+
+                if (infos.lst_Historico_Profissional.Count > 0)
+                {
+                    sb.Append("<h2 style=\"color: steelblue;\"> Histórico Profissional </h2>");
+                    foreach (var i in infos.lst_Historico_Profissional)
+                    {
+                        sb.Append($"<h3 style=\"color: black;\"> {i.Nome_instituicao} • {i.Cargo}</h3>");
+                        sb.Append($"<p style=\"color: darkgray;\"> Entrada: {i.DataInicio.ToString("dd/MM/yyyy")} - Saída: {i.DataSaida.ToString("dd/MM/yyyy")}</p>");
+                        sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao_cargo}</p>");
+                    }
+                }
+
+
+                if (infos.lst_soft_skills.Count > 0)
+                {
+                    sb.Append("<h2 style=\"color: steelblue;\"> Habilidades </h2>");
+
+                    foreach (var i in infos.lst_soft_skills)
+                    {
+                        sb.Append($"<h3 style=\"color: black;\"> {i.Nome}</h3>");
+                        sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao}");
+                    }
+                }
+
+                if (infos.lst_soft_skills.Count > 0)
+                {
+                    sb.Append("<h2 style=\"color: steelblue;\"> Habilidades </h2>");
+
+                    foreach (var i in infos.lst_soft_skills)
+                    {
+                        sb.Append($"<h3 style=\"color: black;\"> {i.Nome}</h3>");
+                        sb.Append($"<p style=\"color: darkgray;\"> {i.Descricao}");
+                    }
+                }
+
+                if (infos.lst_qualidades.Count > 0)
+                {
+                    sb.Append("<h2 style=\"color: steelblue;\"> Qualidades </h2>");
+
+                    foreach (var i in infos.lst_qualidades)
+                    {
+                        sb.Append($"<p style=\"color: black;\"> {i.Nome}</p>");
+                    }
+                }
+
+                sb.Append("</body>");
+                sb.Append("<footer style=\"color: black; font-size: 12px; text-align: center\"><p>Agradeço o retorno positívo</p></footer>");
+                sb.Append("</html>");
+
+                return sb.ToString();
             }
 
-            sb.Append("</body>");
-            sb.Append("<footer style=\"color: black; font-size: 12px; text-align: center\"><p>Agradeço o retorno positívo</p></footer>");
-            sb.Append("</html>");
+            string moderno()
+            {
+                throw new InvalidOperationException();
+            }
 
-            return sb.ToString();
         }
 
         ///<summary>étodo que cria o PDF com base no HTML recebido</summary>
