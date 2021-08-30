@@ -20,7 +20,7 @@
                 <app-error *ngIf="cadastrarForm?.get('Nome')?.errors && cadastrarForm?.get('Nome')?.touched" mensagem="Nome inválido"></app-error>
               </div>
               <div class="col">
-                <label for="nome">Telefone*</label>
+                <label for="Telefone">Telefone*</label>
                 <input type="tel" class="form-control" id="Telefone" placeholder="(31)99999-9999" formControlName="Telefone">
                 <app-error *ngIf="cadastrarForm?.get('Telefone')?.errors && cadastrarForm?.get('Telefone')?.touched" mensagem="Telefone inválido"></app-error>
               </div>
@@ -28,15 +28,15 @@
 
             <div class="form-row">
               <div class="col">
-                <label for="nome">Instagram</label>
+                <label for="Instagram">Instagram</label>
                 <input type="text" class="form-control" id="Instagram" placeholder="@Instagram" formControlName="Instagram">
               </div>
               <div class="col">
-                <label for="nome">Linkedin</label>
+                <label for="Linkedin">Linkedin</label>
                 <input type="text" class="form-control" id="Linkedin" placeholder="Linkedin" formControlName="Linkedin">
               </div>
               <div class="col">
-                <label for="nome">GitHub</label>
+                <label for="GitHub">GitHub</label>
                 <input type="text" class="form-control" id="GitHub" placeholder="GitHub" formControlName="GitHub">
               </div>
             </div>
@@ -55,14 +55,25 @@
                 <app-error *ngIf="cadastrarForm?.get('Senha')?.errors && cadastrarForm?.get('Senha')?.touched" mensagem="Senha inválida"></app-error>
               </div>
               <div class="col">
-                <label for="ConfirmacaoSenha">Confirmação de senha*</label>
+                <label for="ConfirmacaoSenha">Confirmação*</label>
                 <input type="password" class="form-control" id="ConfirmacaoSenha" placeholder="Senha" formControlName="ConfirmacaoSenha">
                 <app-error *ngIf="cadastrarForm?.get('ConfirmacaoSenha')?.errors && cadastrarForm?.get('ConfirmacaoSenha')?.touched" mensagem="Senha inválida"></app-error>
                 <app-error *ngIf="cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value && cadastrarForm?.get('ConfirmacaoSenha')?.value  && cadastrarForm?.get('Senha')?.value" mensagem="Senhas não coincidem">
                 </app-error>
               </div>
             </div>
+
+            <div class="form-row mt-4">
+              <div class="col">
+                <div class="custom-file">
+                  <label class="custom-file-label" for="img_perfil">{{imagem}}</label>
+                  <input type="file" class="custom-file-input" id="img_perfil" (change)="onFileChange($event)" accept="image/png">
+                </div>
+              </div>
+            </div>
+
             <a class="d-block text-primary" routerLink="/login">Já tem conta ? Entre agora!</a>
+            <app-error *ngIf="cadastroErro" mensagem="Email já cadastrado!"></app-error>
             <button type="submit" class="mt-2 btn btn-primary" [disabled]="(cadastrarForm?.get('Senha')?.value !== cadastrarForm?.get('ConfirmacaoSenha')?.value) && (cadastrarForm?.get('ConfirmacaoSenha')?.value  || cadastrarForm?.get('Senha')?.value)">Criar</button>
           </form>
 

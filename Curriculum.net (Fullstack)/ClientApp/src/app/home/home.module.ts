@@ -8,7 +8,7 @@ import { MenuModule } from '../menu/menu.module';
 import { ErrorModule } from '../error/error.module';
 import { DialogModule } from '../dialog/dialog.module';
 import { DialogService } from '../dialog/dialogservice.service';
-import { MatSelectModule, MatCheckboxModule } from '@angular/material';
+import { MatSelectModule, MatCheckboxModule, MatExpansionModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { MatSelectModule, MatCheckboxModule } from '@angular/material';
     ErrorModule,
     DialogModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [
     DialogService

@@ -7,4 +7,6 @@ export class usuarioModel {
   instagram: string;
   linkedin: string;
   github: string;
+  dt_cadastro: Date;
+  img_perfil: string;
 }

@@ -18,8 +18,8 @@ namespace lib.lib.dal
             {
                 vsql =
                     "SELECT " +
-                    "   ID, Nome, Email, Senha, " +
-                    "   Telefone, Instagram, Linkedin, Github " +
+                    "   ID, Nome, Email, Senha, Telefone, " +
+                    "   Instagram, Linkedin, Github, img_perfil " +
                     "FROM usuario " +
                     "WHERE 1=1 ";
 
@@ -52,7 +52,9 @@ namespace lib.lib.dal
                         Telefone = str_lib.CampoString(dalcon.Reader, "Telefone"),
                         Instagram = str_lib.CampoString(dalcon.Reader, "Instagram"),
                         Linkedin = str_lib.CampoString(dalcon.Reader, "Linkedin"),
-                        Github = str_lib.CampoString(dalcon.Reader, "Github")
+                        Github = str_lib.CampoString(dalcon.Reader, "Github"),
+                        dt_cadastro = str_lib.CampoDateTime(dalcon.Reader, "dt_cadastro"),
+                        img_perfil = str_lib.CampoBlob(dalcon.Reader, "img_perfil")
                     };
                 }
 
@@ -108,21 +110,17 @@ namespace lib.lib.dal
 
             try
             {
-                /*if ((dal_login(adt, dalcon)?.ID ?? 0) > 0)
-                    throw new Exception("Usuário já cadastrado");*/
-
-
-                vsql = 
-                    "INSERT INTO USUARIO " +
-                    "(" +
-                    "   ID, Nome, Email, Senha, Telefone, " +
-                    "   Instagram, Linkedin, Github" +
-                    ") " +
-                    "VALUES " +
-                    "(" +
-                    "   ?ID, ?Nome, ?Email, ?Senha, ?Telefone, " +
-                    "   ?Instagram, ?Linkedin, ?Github" +
-                    ")";
+                vsql =
+                     "INSERT INTO USUARIO " +
+                     "(" +
+                     "   ID, Nome, Email, Senha, Telefone, " +
+                     "   Instagram, Linkedin, Github, dt_cadastro, img_perfil" +
+                     ") " +
+                     "VALUES " +
+                     "(" +
+                     "   ?ID, ?Nome, ?Email, ?Senha, ?Telefone, " +
+                     "   ?Instagram, ?Linkedin, ?Github, ?dt_cadastro, ?img_perfil" +
+                     ")";
 
 
                 dalcon.CreateCommand(vsql);
@@ -135,6 +133,8 @@ namespace lib.lib.dal
                 dalcon.AddParams("?Instagram", adt?.Instagram);
                 dalcon.AddParams("?Linkedin", adt?.Linkedin);
                 dalcon.AddParams("?Github", adt?.Github);
+                dalcon.AddParams("?dt_cadastro", adt?.dt_cadastro);
+                dalcon.AddParams("?img_perfil", (adt?.img_perfil.Length > 0) ? adt?.img_perfil : null);
 
                 dalcon.ExecSQL();
                 dalcon.CloseConn(acn == null);

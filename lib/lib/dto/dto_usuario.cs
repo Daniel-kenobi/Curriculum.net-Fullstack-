@@ -13,5 +13,7 @@ namespace lib.dto
         public string Instagram { get; set; }
         public string Linkedin { get; set; }
         public string Github { get; set; }
+        public DateTime dt_cadastro { get; set; }
+        public byte[] img_perfil { get; set; }
     }
 }

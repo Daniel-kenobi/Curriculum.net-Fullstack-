@@ -7,4 +7,5 @@ export class cadastroModel {
   email: string;
   senha: string;
   confirmacaoSenha: string;
+  img_perfil: string;
 }

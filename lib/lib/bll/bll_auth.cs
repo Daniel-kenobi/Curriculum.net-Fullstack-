@@ -3,6 +3,7 @@ using lib.dto;
 using lib.lib.dal;
 using System.Text;
 using System.Security.Cryptography;
+using System;
 
 namespace lib.bll
 {
@@ -39,8 +40,12 @@ namespace lib.bll
 
         public void bll_cadastro(dto_usuario adt, dal_conexao acn = null)
         {
+            if ((dal.dal_login(new dto_usuario { Email = adt?.Email ?? string.Empty })?.ID ?? 0) > 0)
+                throw new Exception("Usuário já cadastrado");
+
             adt.Senha = bll_senha_hash(adt.Senha);
             adt.ID = dal.dal_max_cod(acn).ID;
+            adt.dt_cadastro = DateTime.Now;
 
             dal.dal_cadastro(adt, acn);
         }

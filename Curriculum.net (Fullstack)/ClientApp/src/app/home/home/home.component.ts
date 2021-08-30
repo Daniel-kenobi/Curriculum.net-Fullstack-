@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked } from '@angular/core';
+import { Component, AfterViewChecked, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService } from '../../dialog/dialogservice.service';
 import { CurriculumModel } from '../../models/curriculo.model';
@@ -16,12 +16,11 @@ export class HomeComponent implements AfterViewChecked {
   curriculo: CurriculumModel = new CurriculumModel();
   private FrasePadrao: string = "Me encantaria encontrar uma vaga para essa empresa que é uma instituição que admiro tanto. Além disso, acredito que minha desenvoltura " +
     "natural com pessoas, ótima comunicação, e jeito cuidadoso se provarão muito úteis. Gostaria de poder falar sobre como posso contribuir para" +
-    " essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!"
+    " essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!";
 
+  private panelOpenState = false;
 
-
-  constructor(private frmBuilder: FormBuilder, private cepService: cepService, private curriculoService: curriculoService, private authService: authService,
-    private dialogService: DialogService) {
+  constructor(private frmBuilder: FormBuilder, private cepService: cepService, private curriculoService: curriculoService, private authService: authService, private dialogService: DialogService) {
     this.curriculoGroup = this.frmBuilder.group(
       {
         ID: 0,
@@ -47,6 +46,10 @@ export class HomeComponent implements AfterViewChecked {
         lst_idiomas: this.frmBuilder.array([]),
         template: ['']
       });
+  }
+
+  fnc_altera_estado_expansion() {
+    this.panelOpenState = !this.panelOpenState;
   }
 
   ngAfterViewChecked() {
@@ -166,6 +169,7 @@ export class HomeComponent implements AfterViewChecked {
 
   fnc_cria_modelo(): CurriculumModel {
     const curriculo = new CurriculumModel();
+
     curriculo.ID = this.curriculoGroup.controls['ID'].value;
     curriculo.Nome = this.curriculoGroup.controls['Nome'].value;
     curriculo.Email = this.curriculoGroup.controls['Email'].value;
@@ -181,6 +185,7 @@ export class HomeComponent implements AfterViewChecked {
     curriculo.lst_idiomas = this.curriculoGroup.controls['lst_idiomas'].value;
     curriculo.lst_qualidades = this.curriculoGroup.controls['lst_qualidades'].value;
     curriculo.template = this.curriculoGroup.controls['template'].value;
+
     return curriculo;
   }
 

@@ -5,7 +5,6 @@ import { Observable } from "rxjs";
 import { cadastroModel } from "../models/cadastro.model";
 import { usuarioModel } from "../models/usuario.model";
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -40,5 +39,10 @@ export class authService implements OnInit {
 
   fnc_logout() {
     this.router.navigateByUrl('home').then(x => window.location.reload())
+  }
+
+  fnc_redireciona(): void {
+    if (!this.fnc_retorna_usuario_logado())
+      this.router.navigateByUrl('home')
   }
 }

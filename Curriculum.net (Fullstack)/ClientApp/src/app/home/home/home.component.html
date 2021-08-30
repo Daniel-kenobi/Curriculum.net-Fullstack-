@@ -177,7 +177,7 @@
     <button type="button" class="btn btn-primary btn-lg mt-2 mr-2" (click)="fnc_adiciona_lst_idiomas()"><b style="font-size: 26px">+</b></button>
     <button type="button" class="btn btn-danger btn-lg mt-2" (click)="fnc_remove_lst_idiomas()"><b style="font-size: 26px">-</b></button>
 
-    <div class="d-block">
+    <div class="d-block mt-3">
       <mat-form-field>
         <mat-select name="templateForm" placeholder="Template" formControlName="template">
           <mat-option [value]="0">Clássico</mat-option>
@@ -185,9 +185,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-
     <button type="submit" class="btn btn-primary d-block mt-4">Criar</button>
-
   </form>
 </div>
 
