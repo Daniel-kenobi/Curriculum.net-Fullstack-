@@ -37,6 +37,10 @@ export class authService implements OnInit {
     return this.http.post<cadastroModel>(`${this.baseUrl}cadastrar`, modelo);
   }
 
+  fnc_atualiza_credenciais(modelo: cadastroModel): Observable<cadastroModel> {
+    return this.http.post<cadastroModel>(`${this.baseUrl}atualizar`, modelo);
+  }
+
   fnc_logout() {
     this.router.navigateByUrl('home').then(x => window.location.reload())
   }

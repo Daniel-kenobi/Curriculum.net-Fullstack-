@@ -63,5 +63,19 @@ namespace Curriculum.net.Controllers
                 return BadRequest(ex?.InnerException?.Message ?? ex?.Message);
             }
         }
+
+        public IActionResult atualizar([FromBody] dto_usuario adt)
+        {
+            try
+            {
+                bll.bll_atualizar(adt);
+
+                return Ok(adt);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex?.InnerException?.Message ?? ex?.Message);
+            }
+        }
     }
 }

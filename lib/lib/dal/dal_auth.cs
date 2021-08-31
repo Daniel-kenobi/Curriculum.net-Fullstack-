@@ -101,6 +101,51 @@ namespace lib.lib.dal
             }
         }
 
+        public void dal_atualizar(dto_usuario adt, dal_conexao acn = null)
+        {
+            dal_conexao dalcon = acn ?? new dal_conexao();
+            dalcon.OpenConn(acn == null);
+
+            string vsql = string.Empty;
+
+            try
+            {
+                vsql =
+                     "UPDATE USUARIO " +
+                     "   Nome = ?Nome, Email = ?Email, Senha = ?Senha, Telefone = ?Telefone, " +
+                     "   Instagram = ?Instagram, Linkedin = ?Linkedin, Github = ?Github, img_perfil = ?img_perfil" +
+                     " WHERE Email = ?Email ";
+
+                if ((adt?.ID ?? 0) > 0)
+                    vsql += "AND ID = ?ID";
+
+                dalcon.CreateCommand(vsql);
+                dalcon.AddParams("?Email", adt?.Email);
+
+                if ((adt?.ID ?? 0) > 0)
+                    dalcon.AddParams("?ID", adt.ID);
+
+
+                dalcon.AddParams("?Nome", adt?.Nome);
+                dalcon.AddParams("?Senha", adt?.Senha);
+                dalcon.AddParams("?Telefone", adt?.Telefone);
+                dalcon.AddParams("?Instagram", adt?.Instagram);
+                dalcon.AddParams("?Linkedin", adt?.Linkedin);
+                dalcon.AddParams("?Github", adt?.Github);
+                dalcon.AddParams("?dt_cadastro", adt?.dt_cadastro);
+
+
+                dalcon.AddParams("?img_perfil", (adt?.img_perfil.Length > 0) ? adt?.img_perfil : null);
+
+                dalcon.ExecSQL();
+                dalcon.CloseConn(acn == null);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public void dal_cadastro(dto_usuario adt, dal_conexao acn = null)
         {
             dal_conexao dalcon = acn ?? new dal_conexao();

@@ -38,16 +38,27 @@ namespace lib.bll
             return dal.dal_login(adt, acn);
         }
 
-        public void bll_cadastro(dto_usuario adt, dal_conexao acn = null)
+        private void fnc_valida_email(dto_usuario adt)
         {
             if ((dal.dal_login(new dto_usuario { Email = adt?.Email ?? string.Empty })?.ID ?? 0) > 0)
                 throw new Exception("Usuário já cadastrado");
+        }
+
+        public void bll_cadastro(dto_usuario adt, dal_conexao acn = null)
+        {
+            fnc_valida_email(adt);
 
             adt.Senha = bll_senha_hash(adt.Senha);
             adt.ID = dal.dal_max_cod(acn).ID;
             adt.dt_cadastro = DateTime.Now;
 
             dal.dal_cadastro(adt, acn);
+        }
+
+        public void bll_atualizar(dto_usuario adt, dal_conexao acn = null)
+        {
+            fnc_valida_email(adt);
+            dal.dal_atualizar(adt, acn);
         }
     }
 }

@@ -1,17 +1,19 @@
 <app-navbar></app-navbar>
-<body style="background-color: #F5F5F5" *ngIf="usuario_logado">
+<body *ngIf="usuario_logado">
   <div class="container">
-    <h3>Bem vindo, {{usuario_logado.nome}}</h3>
-    <p class="text-primary">Aqui você pode configurar suas informações básicas e de cadastro!</p>
-     
-    <div class="container">
-      <div class="col md-2" *ngIf="imagem">
-        <div class="d-flex justify-content-center">
-          <img class="img-thumbnail" src="{{imagem}}" alt="escritório" />
-        </div>
-      </div>
-      <form [formGroup]="perfilGroup" (ngSubmit)="onSubmit()">
-        <div class="row">
+
+    <form [formGroup]="perfilGroup" (ngSubmit)="onSubmit()">
+
+      <h3 class="bold mt-3">Bem vindo, {{primeironome}}</h3>
+      <h6 class="text-primary" style="font-size: 16px">Aqui você pode configurar suas informações básicas e de cadastro!</h6>
+
+      <div class="container mt-5" *ngIf="imagem">
+        <div class="row d-flex mt-4">
+          <div class="d-flex border border-primary">
+            <img class="img-thumbnail " src="{{imagem}}" alt="Foto de perfil" width="75" />
+            <input type="file" id="avatar" name="avatar" (change)="onFileChange($event)" style="opacity: 0; position: absolute; width: 75px; height: 150px; color: red; " accept="image/png" formControlName="img_perfil" />
+          </div>
+
           <div class="col">
             <label for="nome">Nome</label>
             <input type="text" id="nome" class="form-control" placeholder="Nome" formControlName="Nome">
@@ -24,13 +26,27 @@
             <label for="tel">Telefone</label>
             <input type="tel" class="form-control" id="tel" placeholder="(31)99999-9999" formControlName="Telefone">
           </div>
+        </div>
+        <div class="row">
           <div class="col">
-            <label for="cep">Cep</label>
-            <input type="text" class="form-control" placeholder="99999-999" id="cep" formControlName="cep">
+            <label for="instagram">instagram</label>
+            <input type="text" class="form-control" id="instagram" placeholder="email@mail.com" formControlName="instagram">
+          </div>
+          <div class="col">
+            <label for="linkedin">linkedin</label>
+            <input type="text" class="form-control" id="linkedin" placeholder="(31)99999-9999" formControlName="linkedin">
+          </div>
+          <div class="col">
+            <label for="github">github</label>
+            <input type="text" class="form-control" placeholder="github" id="github" formControlName="github">
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div class="mx-auto mt-4" style="width: 200px;">
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+      </div>
+    </form>
   </div>
 </body>
 <app-footer></app-footer>
