@@ -14,9 +14,10 @@ import { curriculoService } from '../../services/curriculo.service';
 export class HomeComponent implements AfterViewChecked {
   curriculoGroup: FormGroup;
   curriculo: CurriculumModel = new CurriculumModel();
-  private FrasePadrao: string = "Me encantaria encontrar uma vaga para essa empresa que é uma instituição que admiro tanto. Além disso, acredito que minha desenvoltura " +
+  private FrasePadrao = "Me encantaria encontrar uma vaga para essa empresa que é uma instituição que admiro tanto. Além disso, acredito que minha desenvoltura " +
     "natural com pessoas, ótima comunicação, e jeito cuidadoso se provarão muito úteis. Gostaria de poder falar sobre como posso contribuir para" +
     " essa empresa, e contando com experiência para o meu aperfeiçoamento pessoal, já agradeço pela futura resposta positiva!";
+  private ErroCriacao: string;
 
   private panelOpenState = false;
 
@@ -199,7 +200,16 @@ export class HomeComponent implements AfterViewChecked {
       var file = new Blob([x], { type: 'application/pdf' });
       var fileURL = URL.createObjectURL(file);
       window.open(fileURL, '_blank');
+      this.ErroCriacao = null;
 
-    }, (err) => { console.log(err) });
+    }, (err) => {
+      this.ErroCriacao = "Não foi possível gerar o arquivo, confira os campos e tente novamente. Caso o erro persista entre em contato na aba de contato.";
+
+      window.setTimeout(x => {
+        this.ErroCriacao = null;
+      }, 7000)
+
+      console.log(err);
+      });
   }
 }

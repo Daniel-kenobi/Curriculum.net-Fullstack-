@@ -64,6 +64,7 @@ namespace Curriculum.net.Controllers
             }
         }
 
+        [HttpPost("atualizar")]
         public IActionResult atualizar([FromBody] dto_usuario adt)
         {
             try

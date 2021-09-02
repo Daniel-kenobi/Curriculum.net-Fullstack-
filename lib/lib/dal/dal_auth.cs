@@ -111,13 +111,13 @@ namespace lib.lib.dal
             try
             {
                 vsql =
-                     "UPDATE USUARIO " +
+                     "UPDATE USUARIO SET" +
                      "   Nome = ?Nome, Email = ?Email, Senha = ?Senha, Telefone = ?Telefone, " +
                      "   Instagram = ?Instagram, Linkedin = ?Linkedin, Github = ?Github, img_perfil = ?img_perfil" +
                      " WHERE Email = ?Email ";
 
                 if ((adt?.ID ?? 0) > 0)
-                    vsql += "AND ID = ?ID";
+                    vsql += " AND ID = ?ID";
 
                 dalcon.CreateCommand(vsql);
                 dalcon.AddParams("?Email", adt?.Email);
@@ -125,17 +125,13 @@ namespace lib.lib.dal
                 if ((adt?.ID ?? 0) > 0)
                     dalcon.AddParams("?ID", adt.ID);
 
-
                 dalcon.AddParams("?Nome", adt?.Nome);
                 dalcon.AddParams("?Senha", adt?.Senha);
                 dalcon.AddParams("?Telefone", adt?.Telefone);
                 dalcon.AddParams("?Instagram", adt?.Instagram);
                 dalcon.AddParams("?Linkedin", adt?.Linkedin);
                 dalcon.AddParams("?Github", adt?.Github);
-                dalcon.AddParams("?dt_cadastro", adt?.dt_cadastro);
-
-
-                dalcon.AddParams("?img_perfil", (adt?.img_perfil.Length > 0) ? adt?.img_perfil : null);
+                dalcon.AddParams("?img_perfil", ((adt?.img_perfil?.Length ?? 0) > 0) ? adt?.img_perfil : null);
 
                 dalcon.ExecSQL();
                 dalcon.CloseConn(acn == null);
@@ -156,17 +152,13 @@ namespace lib.lib.dal
             try
             {
                 vsql =
-                     "INSERT INTO USUARIO " +
-                     "(" +
+                     "INSERT INTO USUARIO (" +
                      "   ID, Nome, Email, Senha, Telefone, " +
                      "   Instagram, Linkedin, Github, dt_cadastro, img_perfil" +
-                     ") " +
-                     "VALUES " +
-                     "(" +
+                     ") VALUES (" +
                      "   ?ID, ?Nome, ?Email, ?Senha, ?Telefone, " +
                      "   ?Instagram, ?Linkedin, ?Github, ?dt_cadastro, ?img_perfil" +
                      ")";
-
 
                 dalcon.CreateCommand(vsql);
 

@@ -23,7 +23,7 @@ namespace lib.bll
                 byte[] inputBytes = Encoding.ASCII.GetBytes(senha);
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
 
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
                 for (int i = 0; i < hashBytes.Length; i++)
                 {
                     sb.Append(hashBytes[i].ToString("X2"));
@@ -32,9 +32,11 @@ namespace lib.bll
             }
         }
 
-        public dto_usuario bll_login(dto_usuario adt, dal_conexao acn = null)
+        public dto_usuario bll_login(dto_usuario adt, dal_conexao acn = null, bool atualizacao = false)
         {
-            adt.Senha = bll_senha_hash(adt.Senha);
+            if (!atualizacao)
+                adt.Senha = bll_senha_hash(adt?.Senha);
+
             return dal.dal_login(adt, acn);
         }
 
@@ -57,8 +59,26 @@ namespace lib.bll
 
         public void bll_atualizar(dto_usuario adt, dal_conexao acn = null)
         {
-            fnc_valida_email(adt);
-            dal.dal_atualizar(adt, acn);
+            var rst = bll_login(adt, acn, true);
+
+            if ((rst?.ID ?? 0) > 0)
+            {
+                dto_usuario item = rst;
+                item.Nome = adt.Nome;
+                item.Email = adt.Email;
+                item.Telefone = adt.Telefone;
+                item.Instagram = adt.Instagram;
+                item.Linkedin = adt.Linkedin;
+                item.Github = adt.Github;
+                item.img_perfil = adt.img_perfil;
+
+                if (adt?.Email != item.Email)
+                    fnc_valida_email(adt);
+
+                dal.dal_atualizar(item, acn);
+            }
+            else
+                throw new Exception("usuário não encontrado");
         }
     }
 }

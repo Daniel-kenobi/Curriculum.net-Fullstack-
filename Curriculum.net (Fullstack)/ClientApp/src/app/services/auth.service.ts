@@ -21,12 +21,33 @@ export class authService implements OnInit {
 
   }
 
+  fnc_logado(): boolean {
+    if (this.usrLogado)
+      return true;
+    else
+      return false;
+  }
+
   fnc_altera_usuario_logado(usuario: usuarioModel) {
     this.usrLogado = usuario;
   }
 
   fnc_retorna_usuario_logado(): usuarioModel {
     return this.usrLogado;
+  }
+
+  fnc_transforma_modelos(modelo: cadastroModel): usuarioModel {
+    const rst = new usuarioModel();
+    rst.nome = modelo.nome;
+    rst.telefone = modelo.telefone;
+    rst.instagram = modelo.instagram;
+    rst.linkedin = modelo.linkedin;
+    rst.github = modelo.github;
+    rst.email = modelo.email;
+    rst.senha = modelo.senha;
+    rst.img_perfil = modelo.img_perfil;
+
+    return rst
   }
 
   fnc_logar(modelo: usuarioModel): Observable<usuarioModel> {

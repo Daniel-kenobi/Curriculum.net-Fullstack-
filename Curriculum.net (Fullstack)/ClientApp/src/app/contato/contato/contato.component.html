@@ -25,7 +25,7 @@
       <textarea class="form-control" id="mensagem" rows="3" formControlName="Mensagem"></textarea>
       <app-error *ngIf="mensagemGroup?.get('Mensagem')?.errors && mensagemGroup?.get('Mensagem')?.touched" mensagem="Mensagem inválida, minimo 5 caracteres"></app-error>
     </div>
-    <input class="btn btn-primary" type="submit" value="Enviar">
+    <input class="btn btn-primary" type="submit" value="Enviar" [disabled]="!mensagemGroup?.valid">
   </form>
 </div>
 

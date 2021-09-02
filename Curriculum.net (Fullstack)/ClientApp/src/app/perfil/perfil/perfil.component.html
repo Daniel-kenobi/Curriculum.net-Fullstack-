@@ -4,47 +4,55 @@
 
     <form [formGroup]="perfilGroup" (ngSubmit)="onSubmit()">
 
-      <h3 class="bold mt-3">Bem vindo, {{primeironome}}</h3>
+      <h3 class="bold mt-3">Bem vindo, {{usuario_logado.nome.substr(0, usuario_logado.nome.indexOf(' '))}}</h3>
       <h6 class="text-primary" style="font-size: 16px">Aqui você pode configurar suas informações básicas e de cadastro!</h6>
 
-      <div class="container mt-5" *ngIf="imagem">
+      <div class="container mt-5">
         <div class="row d-flex mt-4">
-          <div class="d-flex border border-primary">
-            <img class="img-thumbnail " src="{{imagem}}" alt="Foto de perfil" width="75" />
+          <div class="d-flex border border-primary ml-3">
+            <img class="img-thumbnail " src="{{imagem}}" alt="Foto de perfil" width="75" *ngIf="imagem" />
+            <div class="img-thumbnail px-5" height="75" *ngIf="!imagem">
+            </div>
             <input type="file" id="avatar" name="avatar" (change)="onFileChange($event)" style="opacity: 0; position: absolute; width: 75px; height: 150px; color: red; " accept="image/png" formControlName="img_perfil" />
           </div>
 
           <div class="col">
             <label for="nome">Nome</label>
             <input type="text" id="nome" class="form-control" placeholder="Nome" formControlName="Nome">
+            <app-error *ngIf="perfilGroup?.get('Nome')?.errors" mensagem="Nome inválido"></app-error>
           </div>
           <div class="col">
             <label for="email">Email</label>
-            <input type="email" id="email" class="form-control" placeholder="email@mail.com" formControlName="Email">
+            <input type="email" id="email" class="form-control" placeholder="email@mail.com" formControlName="Email" disabled>
+            <app-error *ngIf="perfilGroup?.get('Email')?.errors" mensagem="Email inválido"></app-error>
           </div>
           <div class="col">
             <label for="tel">Telefone</label>
             <input type="tel" class="form-control" id="tel" placeholder="(31)99999-9999" formControlName="Telefone">
+            <app-error *ngIf="perfilGroup?.get('Telefone')?.errors" mensagem="Telefone inválido"></app-error>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label for="instagram">instagram</label>
-            <input type="text" class="form-control" id="instagram" placeholder="email@mail.com" formControlName="instagram">
+            <label for="instagram">Instagram</label>
+            <input type="text" class="form-control" id="instagram" placeholder="Instagram" formControlName="instagram">
+            <app-error *ngIf="perfilGroup?.get('instagram')?.errors" mensagem="Instagram inválido"></app-error>
           </div>
           <div class="col">
-            <label for="linkedin">linkedin</label>
-            <input type="text" class="form-control" id="linkedin" placeholder="(31)99999-9999" formControlName="linkedin">
+            <label for="linkedin">Linkedin</label>
+            <input type="text" class="form-control" id="linkedin" placeholder="Linkedin" formControlName="linkedin">
+            <app-error *ngIf="perfilGroup?.get('linkedin')?.errors" mensagem="Linkedin inválido"></app-error>
           </div>
           <div class="col">
-            <label for="github">github</label>
-            <input type="text" class="form-control" placeholder="github" id="github" formControlName="github">
+            <label for="github">GitHub</label>
+            <input type="text" class="form-control" placeholder="GitHub" id="github" formControlName="github">
+            <app-error *ngIf="perfilGroup?.get('github')?.errors" mensagem="GitHub inválido"></app-error>
           </div>
         </div>
       </div>
 
       <div class="mx-auto mt-4" style="width: 200px;">
-        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!perfilGroup?.valid">Atualizar</button>
       </div>
     </form>
   </div>
