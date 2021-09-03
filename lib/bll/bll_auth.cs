@@ -18,6 +18,9 @@ namespace lib.bll
 
         public string bll_senha_hash(string senha)
         {
+            if ((senha?.Length ?? 0) <= 0)
+                return string.Empty;
+
             using (MD5 md5 = MD5.Create())
             {
                 byte[] inputBytes = Encoding.ASCII.GetBytes(senha);

@@ -9,4 +9,5 @@ export class usuarioModel {
   github: string;
   dt_cadastro: Date;
   img_perfil: string;
+  token: string;
 }

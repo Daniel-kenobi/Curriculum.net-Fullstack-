@@ -1,6 +1,8 @@
+import { usuarioModel } from "./usuario.model";
+
 export class mensagemModel {
-  Nome: string;
-  Email: string;
-  Telefone: string;
+  codigo: number | string;
+  usr: usuarioModel;
   Mensagem: string;
+  respondida: boolean;
 }

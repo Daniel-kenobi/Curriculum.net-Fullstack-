@@ -1,11 +1,10 @@
-import { Component, AfterViewChecked, ViewChild } from '@angular/core';
+import { Component, AfterViewChecked, ViewChild, HostListener } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogService } from '../../dialog/dialogservice.service';
 import { CurriculumModel } from '../../models/curriculo.model';
 import { authService } from '../../services/auth.service';
 import { cepService } from '../../services/cep.service';
 import { curriculoService } from '../../services/curriculo.service';
-
 
 @Component({
   selector: 'app-home',

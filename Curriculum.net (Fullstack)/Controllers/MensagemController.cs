@@ -4,6 +4,7 @@ using lib.bll;
 using lib.dto;
 using Swashbuckle.AspNetCore.Annotations;
 using lib.Retornos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Curriculum.net.Controllers
 {
@@ -15,30 +16,29 @@ namespace Curriculum.net.Controllers
     [SwaggerResponse(statusCode: 500, "Erro interno do servidor!", Type = typeof(ErroGenerico))]
 
     ///<summary>pre-fixo de rota (v1/api)</summary>
-    [Route("v1/api")] // configuração de ROTA, setei p prefixo da API para v1/
-    public class CurriculumController : Controller
+    [Route("v1/api/mensagem")] // configuração de ROTA, setei o prefixo da API para v1/
+    public class MensagemController : Controller
     {
-        bll_Curricullum bll;
+        bll_mensagem bll;
 
         ///<summary>Construtor da classe</summary>
-        public CurriculumController()
+        public MensagemController()
         {
-            bll ??= new bll_Curricullum();
+            bll ??= new bll_mensagem();
 
             if (bll is null)
                 throw new Exception("Erro interno");
         }
 
         ///<summary>Rota para gerar um novo currículo (v1/api/inc - POST)</summary>
-        [HttpPost("inc")] // v1/api/inc - POST - cria um novo curriculo
-                          //  [FilterRequest]  // ASSINO A CHAMADA DO FILTRO NESSA ROTA
-                          // [Authorize] // Requisito autorização por token
-        public IActionResult criar([FromBody] dto_curriculo adt)
+        [HttpPost("enviar")] // v1/api/inc - POST - cria um novo curriculo
+        public IActionResult enviar([FromBody] dto_mensagem adt)
         {
             try
             {
-                byte[] fileBytes = bll.bll_criaCurriculo(adt);
-                return File(fileBytes, "application/pdf", "Curricullum");
+                this.bll.bll_envia_mensagem(adt);
+
+                return Ok("Enviada com sucesso");
             }
             catch (Exception ex)
             {

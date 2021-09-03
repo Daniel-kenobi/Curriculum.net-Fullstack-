@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
   fnc_login() {
     this.authService.fnc_logar(this.fnc_cria_modelo()).subscribe(x => {
       this.authService.usrLogado = x as usuarioModel;
+      this.authService.fnc_processa_token(this.authService.usrLogado);
       this.router.navigateByUrl('home');
+
       this.erroLogin = null;
     }, (err) => { this.erroLogin = err })
   }

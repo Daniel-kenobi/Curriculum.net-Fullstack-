@@ -4,6 +4,12 @@ using lib.bll;
 using lib.dto;
 using Swashbuckle.AspNetCore.Annotations;
 using lib.Retornos;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using lib.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Curriculum.net.Controllers
 {
@@ -31,13 +37,15 @@ namespace Curriculum.net.Controllers
 
         ///<summary>Rota para gerar um novo currículo (v1/api/inc - POST)</summary>
         [HttpPost("login")] // v1/api/inc - POST - cria um novo curriculo
-                            //  [FilterRequest]  // ASSINO A CHAMADA DO FILTRO NESSA ROTA
-                            // [Authorize] // Requisito autorização por token
+        [FilterRequest]  // ASSINO A CHAMADA DO FILTRO NESSA ROTA
         public IActionResult login([FromBody] dto_usuario adt)
         {
             try
             {
                 var rst = bll.bll_login(adt);
+
+                if ((rst?.ID ?? 0) > 0)
+                    rst.token = token(rst).token;
 
                 return ((rst?.ID ?? 0) != 0) ? Ok(rst) : NotFound("Usuário ou senha inválidos");
             }
@@ -77,6 +85,28 @@ namespace Curriculum.net.Controllers
             {
                 return BadRequest(ex?.InnerException?.Message ?? ex?.Message);
             }
+        }
+
+        public dto_usuario token([FromBody] dto_usuario adt)
+        {
+            var secret = Encoding.ASCII.GetBytes("aa790cbf9d02deb783286181e4c5dd5");
+            var symetricSecurityKey = new SymmetricSecurityKey(secret);
+            var securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                /* DE FORMA RESUMIDA O CLAIM É UM ATRIBUTO, QUE TAMBÉM PODE SER HERDADO DA CLASSE PASSADA NO JSON
+                 * PODE SER UM ATRIBUTO DO OBJETO, COMO NOME, EMAIL, E-mail, Telefone e etc */
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                        new Claim(ClaimTypes.Email, adt.Email)
+                }),
+                Expires = DateTime.UtcNow.AddMinutes(20),
+                SigningCredentials = new SigningCredentials(symetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)
+            };
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var tokenGenerated = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            var token = jwtSecurityTokenHandler.WriteToken(tokenGenerated);
+
+            return new dto_usuario { token = token };
         }
     }
 }

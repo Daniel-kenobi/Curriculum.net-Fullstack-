@@ -12,8 +12,10 @@ export class GuardServiceGuard implements CanLoad {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.authService.fnc_logado()) {
-      this.router.navigateByUrl('home');
+    var currentUser = localStorage.getItem('usuario');
+
+    if (!currentUser) {
+      this.router.navigateByUrl('login');
       return false;
     }
     return true;

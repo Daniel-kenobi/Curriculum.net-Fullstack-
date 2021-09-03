@@ -15,5 +15,6 @@ namespace lib.dto
         public string Github { get; set; }
         public DateTime dt_cadastro { get; set; }
         public byte[] img_perfil { get; set; }
+        public string token { get; set; }
     }
 }

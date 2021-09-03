@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\Daniel\.nuget\packages\select.htmltopdf.netcore\21.1.0\contentFiles\any\any\Select.Html.dep" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="8.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.9" />
     <PackageReference Include="MySql.Data" Version="8.0.18" />

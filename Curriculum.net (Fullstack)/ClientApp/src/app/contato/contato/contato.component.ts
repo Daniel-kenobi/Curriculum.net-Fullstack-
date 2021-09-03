@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mensagemModel } from '../../models/mensagem.model';
+import { usuarioModel } from '../../models/usuario.model';
+import { authService } from '../../services/auth.service';
 import { mensagemService } from '../../services/mensagem.service';
 
 @Component({
@@ -11,13 +13,15 @@ export class ContatoComponent implements OnInit {
 
   mensagemGroup: FormGroup;
 
-  constructor(private frm: FormBuilder, private service: mensagemService) { }
+  constructor(private frm: FormBuilder, private service: mensagemService, private authService: authService) {
 
-  ngOnInit() {
-    this.mensagemGroup = this.frm.group({
-      Nome: ['', [Validators.required, Validators.minLength(3)]],
-      Email: ['', [Validators.required, Validators.email]],
-      Telefone: ['', [Validators.required]],
+  }
+
+    ngOnInit() {
+      this.mensagemGroup = this.frm.group({
+        Nome: [this.authService.usrLogado.nome || '', [Validators.required, Validators.minLength(3)]],
+        Email: [this.authService.usrLogado.email || '', [Validators.required, Validators.email]],
+        Telefone: [this.authService.usrLogado.telefone || '', [Validators.required]],
       Mensagem: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(160)]]
     });
   }
@@ -25,11 +29,13 @@ export class ContatoComponent implements OnInit {
   fnc_envia_mensagem() {
     const mensagem = new mensagemModel();
 
-    mensagem.Nome = this.mensagemGroup.controls['Nome'].value;
-    mensagem.Email = this.mensagemGroup.controls['Email'].value;
-    mensagem.Telefone = this.mensagemGroup.controls['Telefone'].value;
+    mensagem.usr = new usuarioModel();
+
+    mensagem.usr.nome = this.mensagemGroup.controls['Nome'].value;
+    mensagem.usr.email = this.mensagemGroup.controls['Email'].value;
+    mensagem.usr.telefone = this.mensagemGroup.controls['Telefone'].value;
     mensagem.Mensagem = this.mensagemGroup.controls['Mensagem'].value;
 
-    this.service.fnc_envia_mensagem(mensagem).subscribe(x => console.log(x), (err) => console.log(err));
+    this.service.fnc_envia_mensagem(mensagem).subscribe(x => console.log("Deu certo ?????"), (err) => console.log(err));
   }
 }
