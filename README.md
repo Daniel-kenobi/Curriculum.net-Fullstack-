@@ -13,3 +13,8 @@ O projeto possui autenticação por token, guard de rotas, conceito de modulariz
 
 <h4>Cadastro</h4>
 <img src='https://i.ibb.co/M6rBHk0/cadastro.png'>
+
+
+<p>Desenvolvido por: <a href='https://github.com/Daniel-kenobi'>Daniel-kenobi</a></p>
+<p>Bibliotecas utilizadas: OpenHTMLToPDF</p>
+
