@@ -6,10 +6,10 @@ O projeto possui autenticação por token, guard de rotas, conceito de modulariz
 <h2>Segue abaixo alguns prints do projeto</h2>
 
 <h4>Home</h4>
-![alt text](https://i.ibb.co/NS4fcj2/Home.png)
+![Alt text](https://i.ibb.co/NS4fcj2/Home.png)
 
 <h4>Login</h4>
-![alt text](https://i.ibb.co/dJxkpHJ/login.png)
+![Alt text](https://i.ibb.co/dJxkpHJ/login.png)
 
 <h4>Cadastro</h4>
-![alt text](https://i.ibb.co/M6rBHk0/cadastro.png)
+![Alt text](https://i.ibb.co/M6rBHk0/cadastro.png)
