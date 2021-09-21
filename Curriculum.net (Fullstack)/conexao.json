@@ -1,7 +1,7 @@
 ﻿{
-  "hst": "localhost",
-  "bd": "curricullum",
-  "usr": "root",
-  "shn": "inov",
-  "SGDB": 1
+  "hst": "localhost", /*Host*/
+  "bd": "curricullum", /*Nome do banco*/
+  "usr": "root", /*Usuario do banco*/
+  "shn": "inov", /*Senha do banco*/
+  "SGDB": 1 /*BD - 0 = Firebird - 1 = MySql*/
 }
